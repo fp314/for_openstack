@@ -32,7 +32,7 @@ from oslo_db.sqlalchemy import utils
 class _symbol(object):
     """represent a fixed symbol."""
 
-    __slots__ = 'name',
+    __slots__ = 'name',     #限定只能有name属性，防止对cls动态增加属性
 
     def __init__(self, name):
         self.name = name

@@ -37,8 +37,8 @@ import nova.conf
 CONF = nova.conf.CONF
 
 _BACKEND_MAPPING = {'sqlalchemy': 'nova.db.sqlalchemy.api'}
-
-
+#概述：IMPL最终数据来源为：nova.db.sqlalchemy.api.get_backend()<返回了模块本身>
+#两次装饰器包装：1、增减retry(参数来自CONF，有默认参数);2、增加eventlet----tpool绿化（threading优化，tpool待解析=======）
 IMPL = concurrency.TpoolDbapiWrapper(CONF, backend_mapping=_BACKEND_MAPPING)
 
 LOG = logging.getLogger(__name__)

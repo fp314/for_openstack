@@ -12,7 +12,7 @@
 
 from oslo_config import cfg
 
-
+#db相关参数项for绑定；及默认值
 database_opts = [
     cfg.BoolOpt('sqlite_synchronous',
                 deprecated_group='DEFAULT',

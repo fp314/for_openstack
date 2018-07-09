@@ -90,7 +90,7 @@ class NovaObject(ovoo_base.VersionedObject):
     necessary "get" classmethod routines as well as "save" object methods
     as appropriate.
     """
-
+    #重点标识
     OBJ_SERIAL_NAMESPACE = 'nova_object'
     OBJ_PROJECT_NAMESPACE = 'nova'
 

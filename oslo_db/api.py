@@ -80,7 +80,7 @@ def retry_on_request(f):
     f.__dict__['enable_retry_on_request'] = True
     return f
 
-
+#进行retry,没有细看=========================================
 class wrap_db_retry(object):
     """Retry db.api methods, if db_error raised
 
@@ -142,7 +142,7 @@ class wrap_db_retry(object):
                     return f(*args, **kwargs)
                 except Exception as e:
                     with excutils.save_and_reraise_exception() as ectxt:
-                        expected = self._is_exception_expected(e)
+                        expected = self._is_exception_expected(e)   #检查异常类型是否符合retry
                         if remaining > 0:
                             ectxt.reraise = not expected
                         else:
@@ -197,7 +197,7 @@ class wrap_db_retry(object):
             sleep_time = n
         return min(sleep_time, self.max_retry_interval), n
 
-
+#对后端接口进行包装（增加retry装饰器），所有接口like DBAPI属性，
 class DBAPI(object):
     """Initialize the chosen DB API backend.
 
@@ -235,7 +235,7 @@ class DBAPI(object):
     def __init__(self, backend_name, backend_mapping=None, lazy=False,
                  **kwargs):
 
-        self._backend = None
+        self._backend = None    #后端，核心数据提供者
         self._backend_name = backend_name
         self._backend_mapping = backend_mapping or {}
         self._lock = threading.Lock()
@@ -260,9 +260,9 @@ class DBAPI(object):
                           {'name': self._backend_name,
                            'path': backend_path})
                 backend_mod = importutils.import_module(backend_path)
-                self._backend = backend_mod.get_backend()
+                self._backend = backend_mod.get_backend()       #主要数据来源
 
-    def __getattr__(self, key):
+    def __getattr__(self, key):     #如果是可调用type(类实现__call__;函数方法),则对retry参数设定后，返回待retry装饰器的attr;否则直接返回
         if not self._backend:
             self._load_backend()
 
@@ -285,7 +285,7 @@ class DBAPI(object):
                 **self._wrap_db_kwargs)(attr)
 
         return attr
-
+    #从配置文件中的参数返回对象
     @classmethod
     def from_config(cls, conf, backend_mapping=None, lazy=False):
         """Initialize DBAPI instance given a config instance.

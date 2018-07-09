@@ -523,7 +523,7 @@ class VersionedObject(object):
             if not self.obj_attr_is_set(key):
                 continue
             self._obj_make_obj_compatible(primitive, target_version, key)
-
+    #根据version_manifest，找到target_version最近的兼容版本修改，primitive中的版本号，针对obj fields
     def obj_make_compatible_from_manifest(self, primitive, target_version,
                                           version_manifest):
         # NOTE(danms): Stash the manifest on the object so we can use it in

@@ -181,10 +181,10 @@ class Service(base.NovaPersistentObject, base.NovaObject,
 
         super(Service, self).__init__(*args, **kwargs)
         self.version = SERVICE_VERSION
-
+    #兼容处理
     def obj_make_compatible_from_manifest(self, primitive, target_version,
                                           version_manifest):
-        super(Service, self).obj_make_compatible_from_manifest(
+        super(Service, self).obj_make_compatible_from_manifest(      #先对obj field进行兼容处理（修改版本号）
             primitive, target_version, version_manifest)
         _target_version = versionutils.convert_version_to_tuple(target_version)
         if _target_version < (1, 21) and 'uuid' in primitive:
@@ -215,7 +215,7 @@ class Service(base.NovaPersistentObject, base.NovaObject,
             target_version=target_version,
             version_manifest=version_manifest)
 
-    @staticmethod
+    @staticmethod   #将数据库查询的数据db_service----->service
     def _from_db_object(context, service, db_service):
         allow_missing = ('availability_zone',)
         for key in service.fields:
@@ -224,7 +224,7 @@ class Service(base.NovaPersistentObject, base.NovaObject,
             if key == 'compute_node':
                 #  NOTE(sbauza); We want to only lazy-load compute_node
                 continue
-            elif key == 'version':
+            elif key == 'version':  #特殊_obj__obj_version ???
                 # NOTE(danms): Special handling of the version field, since
                 # it is read_only and set in our init.
                 setattr(service, base.get_attrname(key), db_service[key])
@@ -239,15 +239,15 @@ class Service(base.NovaPersistentObject, base.NovaObject,
         service.obj_reset_changes()
 
         # TODO(dpeschman): Drop this once all services have uuids in database
-        if 'uuid' not in service:
+        if 'uuid' not in service:   #没有uuid则生成并保存
             service.uuid = uuidutils.generate_uuid()
             LOG.debug('Generated UUID %(uuid)s for service %(id)i',
                       dict(uuid=service.uuid, id=service.id))
             service.save()
 
         return service
-
-    def obj_load_attr(self, attrname):     #延迟加载compute_node
+    # 延迟加载compute_node
+    def obj_load_attr(self, attrname):
         if not self._context:
             raise exception.OrphanedObjectError(method='obj_load_attr',
                                                 objtype=self.obj_name())

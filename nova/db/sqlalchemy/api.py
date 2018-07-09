@@ -68,7 +68,7 @@ from nova import exception
 from nova.i18n import _
 from nova import safe_utils
 
-profiler_sqlalchemy = importutils.try_import('osprofiler.sqlalchemy')
+profiler_sqlalchemy = importutils.try_import('osprofiler.sqlalchemy')   #假设其为false不加载
 
 CONF = nova.conf.CONF
 

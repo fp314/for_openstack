@@ -54,7 +54,7 @@ class TpoolDbapiWrapper(object):
         if not self._db_api:
             with self._lock:
                 if not self._db_api:
-                    db_api = api.DBAPI.from_config(
+                    db_api = api.DBAPI.from_config(     #获取实例；主要
                         conf=self._conf, backend_mapping=self._backend_mapping)
                     if self._conf.database.use_tpool:
                         try:
@@ -63,7 +63,7 @@ class TpoolDbapiWrapper(object):
                             LOG.exception("'eventlet' is required for "
                                           "TpoolDbapiWrapper.")
                             raise
-                        self._db_api = tpool.Proxy(db_api)
+                        self._db_api = tpool.Proxy(db_api)      #grenpool线程池包装方法？？？
                     else:
                         self._db_api = db_api
         return self._db_api
