@@ -117,8 +117,8 @@ class _Default(object):
         return not isinstance(value, _Default) or \
             value.value is not cls._notset or \
             hasattr(conf_namespace, key)
-
-
+#核心函数：_start()----根据CONF参数生成_reader_engine；_reader_maker；_writer_engine；_writer_maker
+#get_legacy_facade()----返回代理，帮助获取get_engine()；get_session()；get_sessionmaker()。
 class _TransactionFactory(object):
     """A factory for :class:`._TransactionContext` objects.
 
@@ -309,7 +309,7 @@ class _TransactionFactory(object):
 
         """
         self._configure(False, kw)
-
+    #依据KW赋值
     def _configure(self, as_defaults, kw):
 
         if self._started:
@@ -418,7 +418,7 @@ class _TransactionFactory(object):
             return self._reader_maker(**kw)
         else:
             return self._writer_maker(**kw)
-
+    #赋值fatory,主要是copy其参数
     def _create_factory_copy(self):
         factory = _TransactionFactory()
         factory._url_cfg.update(self._url_cfg)
@@ -427,7 +427,7 @@ class _TransactionFactory(object):
         factory._transaction_ctx_cfg.update(self._transaction_ctx_cfg)
         factory._facade_cfg.update(self._facade_cfg)
         return factory
-
+    #从conf获取参数值，包装成_Default
     def _args_for_conf(self, default_cfg, conf):
         if conf is None:
             return dict(
@@ -462,7 +462,7 @@ class _TransactionFactory(object):
             self._writer_engine.pool.dispose()
             if self._reader_engine is not self._writer_engine:
                 self._reader_engine.pool.dispose()
-
+    #根据CONF参数生成_reader_engine；_reader_maker；_writer_engine；_writer_maker
     def _start(self, conf=False, connection=None, slave_connection=None):
         with self._start_lock:
             # self._started has been checked on the outside
@@ -509,7 +509,7 @@ class _TransactionFactory(object):
             # we try the whole thing again and report errors
             # correctly
             self._started = True
-
+    #根据sql_connection，生成engine, sessionmaker
     def _setup_for_connection(
             self, sql_connection, engine_kwargs, maker_kwargs):
         if sql_connection is None:
@@ -760,7 +760,7 @@ class _TransactionContextManager(object):
         else:
             self._root = root
 
-        self._replace_global_factory = replace_global_factory
+        self._replace_global_factory = replace_global_factory       #可替代的factory
         self._is_global_manager = _is_global_manager
         self._mode = mode
         self._independent = independent
@@ -769,13 +769,13 @@ class _TransactionContextManager(object):
             raise TypeError(
                 "setting savepoint and independent makes no sense.")
         self._connection = connection
-        self._allow_async = allow_async
+        self._allow_async = allow_async     #是否支持异步，slave db
 
     @property
     def _factory(self):
         """The :class:`._TransactionFactory` associated with this context."""
         return self._root._root_factory
-
+    #从kw为_factory设置参数，不转换成_Default()
     def configure(self, **kw):
         """Apply configurational options to the factory.
 
@@ -785,11 +785,11 @@ class _TransactionContextManager(object):
 
         """
         self._factory.configure(**kw)
-
+    #处理engine的方法，类似包装器
     def append_on_engine_create(self, fn):
         """Append a listener function to _facade_cfg["on_engine_create"]"""
         self._factory._facade_cfg['on_engine_create'].append(fn)
-
+    #_factory的helper class
     def get_legacy_facade(self):
         """Return a :class:`.LegacyEngineFacade` for factory from this context.
 
@@ -834,7 +834,7 @@ class _TransactionContextManager(object):
     def dispose_pool(self):
         """Call engine.pool.dispose() on underlying Engine objects."""
         self._factory.dispose_pool()
-
+    #clone
     def make_new_manager(self):
         """Create a new, independent _TransactionContextManager from this one.
 
@@ -852,7 +852,7 @@ class _TransactionContextManager(object):
         if new._factory._started:
             raise AssertionError('TransactionFactory is already started')
         return new
-
+    #替换self的factoty,并返回撤销替换的方法
     def patch_factory(self, factory_or_manager):
         """Patch a _TransactionFactory into this manager.
 
@@ -885,7 +885,7 @@ class _TransactionContextManager(object):
             self._root_factory = existing_factory
 
         return reset
-
+    #生成替换了engine、maker的新factory，替换self的factoty,并返回撤销替换的方法
     def patch_engine(self, engine):
         """Patch an Engine into this manager.
 
@@ -912,12 +912,12 @@ class _TransactionContextManager(object):
             from_factory=existing_factory
         )
         return self.patch_factory(factory)
-
+    #返回新manager类，root及factory没变
     @property
     def replace(self):
         """Modifier to replace the global transaction factory with this one."""
         return self._clone(replace_global_factory=self._factory)
-
+    # 返回新manager类，root及factory没变，修改mode=_WRITER
     @property
     def writer(self):
         """Modifier to set the transaction to WRITER."""
@@ -1006,7 +1006,7 @@ class _TransactionContextManager(object):
     def _transaction_scope(self, context):
         new_transaction = self._independent
         transaction_contexts_by_thread = \
-            _transaction_contexts_by_thread(context)
+            _transaction_contexts_by_thread(context)    #类似threadlocal
 
         current = restore = getattr(
             transaction_contexts_by_thread, "current", None)
@@ -1154,7 +1154,7 @@ reader = _context_manager.reader
 writer = _context_manager.writer
 """The global 'writer' starting point."""
 
-
+#提供get_engine;get_session;get_sessionmaker。但最终是由_factory提供-----包装factory
 class LegacyEngineFacade(object):
     """A helper class for removing of global engine instances from oslo.db.
 
