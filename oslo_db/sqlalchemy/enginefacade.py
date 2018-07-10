@@ -522,7 +522,7 @@ class _TransactionFactory(object):
         sessionmaker = orm.get_maker(engine=engine, **maker_kwargs)
         return engine, sessionmaker
 
-
+#类似一个临时公用的manager
 class _TestTransactionFactory(_TransactionFactory):
     """A :class:`._TransactionFactory` used by test suites.
 
@@ -664,7 +664,7 @@ class _TransactionContext(object):
                     yield self.session
                 if self.flush_on_subtransaction:
                     self.session.flush()
-
+    #暂时替换connection的context环境
     @contextlib.contextmanager
     def _add_context(self, connection, context):
         restore_context = connection.info.get('using_context')
@@ -726,7 +726,7 @@ class _TransactionContext(object):
         if self.mode is None:
             self.mode = _ASYNC_READER
 
-
+#threading.local
 class _TransactionContextTLocal(threading.local):
     def __deepcopy__(self, memo):
         return self
@@ -734,7 +734,7 @@ class _TransactionContextTLocal(threading.local):
     def __reduce__(self):
         return _TransactionContextTLocal, ()
 
-
+#test
 class _TransactionContextManager(object):
     """Provide context-management and decorator patterns for transactions.
 
@@ -1003,7 +1003,7 @@ class _TransactionContextManager(object):
         return _TransactionContextManager(root=self._root, **default_kw)
 
     @contextlib.contextmanager
-    def _transaction_scope(self, context):
+    def _transaction_scope(self, context):  #context为类似threadlocal，current为_TransactionContext
         new_transaction = self._independent
         transaction_contexts_by_thread = \
             _transaction_contexts_by_thread(context)    #类似threadlocal
@@ -1013,20 +1013,20 @@ class _TransactionContextManager(object):
 
         use_factory = self._factory
         global_factory = None
-
+        #有global factory则优先使用该factory
         if self._replace_global_factory:
             use_factory = global_factory = self._replace_global_factory
         elif current is not None and current.global_factory:
             global_factory = current.global_factory
-
+            #global_manager优先使用global_factory
             if self._root._is_global_manager:
                 use_factory = global_factory
-
+        #有new_transaction标识 或者  current.factory有误，则current = None
         if current is not None and (
                 new_transaction or current.factory is not use_factory
         ):
             current = None
-
+        #current = None则根据factory生成新的TransactionContext
         if current is None:
             current = transaction_contexts_by_thread.current = \
                 _TransactionContext(use_factory, global_factory=global_factory)
@@ -1042,7 +1042,7 @@ class _TransactionContextManager(object):
                     yield resource
             else:
                 yield
-        finally:
+        finally:    #最后恢复原有的current
             if restore is None:
                 del transaction_contexts_by_thread.current
             elif current is not restore:
@@ -1109,7 +1109,7 @@ def transaction_context_provider(klass):
 
     return klass
 
-
+#global_manager
 _context_manager = _TransactionContextManager(_is_global_manager=True)
 """default context manager."""
 

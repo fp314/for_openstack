@@ -74,7 +74,7 @@ CONF = nova.conf.CONF
 
 
 LOG = logging.getLogger(__name__)
-
+#两个_TransactionContextManager可调用实例，实物管理
 main_context_manager = enginefacade.transaction_context()
 api_context_manager = enginefacade.transaction_context()
 
@@ -320,7 +320,7 @@ def model_query(context, model,
     # We can't use oslo.db model_query's project_id here, as it doesn't allow
     # us to return both our projects and unowned projects.
     if nova.context.is_user_context(context) and project_only:
-        if project_only == 'allow_none':
+        if project_only == 'allow_none':    #允许project_id == null()
             query = query.\
                 filter(or_(model.project_id == context.project_id,
                            model.project_id == null()))
