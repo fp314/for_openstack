@@ -77,8 +77,8 @@ class _ContextAuthPlugin(plugin.BaseAuthPlugin):
                                             interface=interface,
                                             region_name=region_name)
 
-
-@enginefacade.transaction_context_provider
+#RequestContext主要是对user、project、admin、request_id等数据的包装
+@enginefacade.transaction_context_provider  #使其有transaction_ctx属性，其有包括'session', 'connection', 'transaction'属性
 class RequestContext(context.RequestContext):
     """Security context and request information.
 
@@ -144,7 +144,7 @@ class RequestContext(context.RequestContext):
         self.user_auth_plugin = user_auth_plugin
         if self.is_admin is None:
             self.is_admin = policy.check_is_admin(self)
-
+    #认证相关插件  ？？？
     def get_auth_plugin(self):
         if self.user_auth_plugin:
             return self.user_auth_plugin
@@ -244,7 +244,7 @@ class RequestContext(context.RequestContext):
             ctx.project_id = ctx.tenant
 
         return ctx
-
+    #clone self加强权限，context.is_admin = True ;context.roles.append('admin');
     def elevated(self, read_deleted=None):
         """Return a version of this context with admin flag set."""
         context = copy.copy(self)
@@ -260,7 +260,7 @@ class RequestContext(context.RequestContext):
             context.read_deleted = read_deleted
 
         return context
-
+    #policy相关，可以分析oslo_policy
     def can(self, action, target=None, fatal=True):
         """Verifies that the given action is valid on the target in this context.
 
@@ -289,7 +289,7 @@ class RequestContext(context.RequestContext):
             if fatal:
                 raise
             return False
-
+    #_DeprecatedPolicyValues，  self部分值包装成dict,类dict类
     def to_policy_values(self):
         policy = super(RequestContext, self).to_policy_values()
         policy['is_admin'] = self.is_admin

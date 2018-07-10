@@ -371,7 +371,7 @@ class RequestContext(object):
         and fall back to the locally generated request_id if not.
         """
         return self.global_request_id or self.request_id
-
+    #从values构建kwargs（dict）,从values构建kwargs作为参数生成RequestContext instance
     @classmethod
     @_renamed_kwarg('user', 'user_id')
     @_renamed_kwarg('tenant', 'project_id')
@@ -404,7 +404,7 @@ class RequestContext(object):
         for key in cls.FROM_DICT_EXTRA_KEYS:
             kwargs.setdefault(key, values.get(key))
         return cls(**kwargs)
-
+    #从HTTP头信息environ中获取kwargs作为参数生成RequestContext instance
     @classmethod
     @_renamed_kwarg('user', 'user_id')
     @_renamed_kwarg('tenant', 'project_id')

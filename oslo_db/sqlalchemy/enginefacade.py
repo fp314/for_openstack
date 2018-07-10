@@ -1072,9 +1072,9 @@ def _context_descriptor(attr=None):
             return result
     return property(_property_for_context)
 
-
+#threading.local.current
 def _transaction_ctx_for_context(context):
-    by_thread = _transaction_contexts_by_thread(context)
+    by_thread = _transaction_contexts_by_thread(context)    #多半是返回threading.local
     try:
         return by_thread.current
     except AttributeError:
@@ -1084,7 +1084,7 @@ def _transaction_ctx_for_context(context):
             % context
         )
 
-
+#返回context的_enginefacade_context属相，没有则返回threading.local
 def _transaction_contexts_by_thread(context):
     transaction_contexts_by_thread = getattr(
         context, '_enginefacade_context', None)

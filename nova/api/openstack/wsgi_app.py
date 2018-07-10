@@ -43,7 +43,7 @@ def _get_config_files(env=None):
 def _setup_service(host, name):
     binary = name if name.startswith('nova-') else "nova-%s" % name   #nova-osapi_compute
 
-    ctxt = context.get_admin_context()  #创建上下文context，RequestContext
+    ctxt = context.get_admin_context()  #创建上下文context，nova/context/RequestContext
     service_ref = objects.Service.get_by_host_and_binary(
         ctxt, host, binary)
     if service_ref:
