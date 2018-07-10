@@ -36,7 +36,7 @@ import warnings
 import debtcollector
 from debtcollector import renames
 
-
+#threading.local
 _request_store = threading.local()
 
 # These arguments will be passed to a new context from the first available
@@ -259,12 +259,12 @@ class RequestContext(object):
         self.service_project_domain_id = service_project_domain_id
         self.service_project_domain_name = service_project_domain_name
         self.service_roles = service_roles or []
-
+        #没有则生成request_id   ----   uuid
         if not request_id:
             request_id = generate_request_id()
         self.request_id = request_id
         self.global_request_id = global_request_id
-        if overwrite or not get_current():
+        if overwrite or not get_current():  #设置_request_store : threadLocal;;;_request_store.context : self
             self.update_store()
 
     # NOTE(jamielennox): To prevent circular lookups on subclasses that might
@@ -285,7 +285,7 @@ class RequestContext(object):
     domain_id = _moved_property('_domain_id')
     user_domain_id = _moved_property('_user_domain_id')
     project_domain_id = _moved_property('_project_domain_id')
-
+    #将self存入threadLocal.context，必然执行
     def update_store(self):
         """Store the context in the current thread."""
         _request_store.context = self
