@@ -45,7 +45,7 @@ def _setup_service(host, name):
 
     ctxt = context.get_admin_context()  #创建上下文context，nova/context/RequestContext
     service_ref = objects.Service.get_by_host_and_binary(
-        ctxt, host, binary)
+        ctxt, host, binary)     #从数据库获取数据，生成sevice
     if service_ref:
         service._update_service_ref(service_ref)
     else:
@@ -74,7 +74,7 @@ def error_application(exc, name):
 
 def init_application(name):
     conf_files = _get_config_files()
-    config.parse_args([], default_config_files=conf_files)  #解析配置文件->CONF,nova
+    config.parse_args([], default_config_files=conf_files)  #解析配置文件->CONF,nova；默认会init RPC和DB
 
     logging.setup(CONF, "nova")
     try:

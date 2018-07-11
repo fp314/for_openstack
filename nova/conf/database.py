@@ -114,9 +114,9 @@ def enrich_help_text(alt_db_opts):
 
 
 def register_opts(conf):
-    oslo_db_options.set_defaults(conf, connection=_DEFAULT_SQL_CONNECTION)
+    oslo_db_options.set_defaults(conf, connection=_DEFAULT_SQL_CONNECTION)  #group : "database"
     conf.register_opt(db_driver_opt)
-    conf.register_opts(api_db_opts, group=api_db_group)
+    conf.register_opts(api_db_opts, group=api_db_group)     #group : "api_database"
 
 
 def list_opts():

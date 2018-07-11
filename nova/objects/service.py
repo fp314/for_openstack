@@ -216,7 +216,7 @@ class Service(base.NovaPersistentObject, base.NovaObject,
             version_manifest=version_manifest)
 
     @staticmethod   #将数据库查询的数据db_service----->service
-    def _from_db_object(context, service, db_service):
+    def _from_db_object(context, service, db_service):      #db_service---models/Service
         allow_missing = ('availability_zone',)
         for key in service.fields:
             if key in allow_missing and key not in db_service:
@@ -235,8 +235,8 @@ class Service(base.NovaPersistentObject, base.NovaObject,
             else:
                 service[key] = db_service[key]
 
-        service._context = context
-        service.obj_reset_changes()
+        service._context = context      #保存context
+        service.obj_reset_changes()     #清空field改变记录
 
         # TODO(dpeschman): Drop this once all services have uuids in database
         if 'uuid' not in service:   #没有uuid则生成并保存
@@ -354,17 +354,17 @@ class Service(base.NovaPersistentObject, base.NovaObject,
 
         db_service = db.service_create(self._context, updates)
         self._from_db_object(self._context, self, db_service)
-
+    #更新数据，并从db从新读取
     @base.remotable
     def save(self):
         updates = self.obj_get_changes()
-        updates.pop('id', None)
+        updates.pop('id', None)     #剔除，id的改变不保存。
         self._check_minimum_version()
-        db_service = db.service_update(self._context, self.id, updates)
-        self._from_db_object(self._context, self, db_service)
+        db_service = db.service_update(self._context, self.id, updates) #更新后，从新获取
+        self._from_db_object(self._context, self, db_service)   #根据db数据从新生成instance
 
         self._send_status_update_notification(updates)
-
+    #发送notification？？？
     def _send_status_update_notification(self, updates):
         # Note(gibi): We do not trigger notification on version as that field
         # is always dirty, which would cause that nova sends notification on

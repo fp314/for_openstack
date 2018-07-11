@@ -74,7 +74,7 @@ CONF = nova.conf.CONF
 
 
 LOG = logging.getLogger(__name__)
-#两个_TransactionContextManager可调用实例，实物管理
+#两个_TransactionContextManager可调用实例，事务管理
 main_context_manager = enginefacade.transaction_context()
 api_context_manager = enginefacade.transaction_context()
 
@@ -108,7 +108,7 @@ def _context_manager_from_context(context):
 
 
 def configure(conf):
-    main_context_manager.configure(**_get_db_conf(conf.database))
+    main_context_manager.configure(**_get_db_conf(conf.database))       #配置该manager的factory
     api_context_manager.configure(**_get_db_conf(conf.api_database))
 
     if profiler_sqlalchemy and CONF.profiler.enabled \
@@ -250,7 +250,7 @@ def pick_context_manager_writer(f):
             return f(context, *args, **kwargs)
     return wrapped
 
-
+#装饰器通过manager管理db连接（生成需要的session供使用，可管理实物）
 def pick_context_manager_reader(f):
     """Decorator to use a reader db context manager.
 

@@ -27,9 +27,9 @@ from nova import version
 profiler = importutils.try_import('osprofiler.opts')
 
 
-CONF = nova.conf.CONF
+CONF = nova.conf.CONF       #conf import时注册CONF配置项；
 
-
+#解析配置文件；默认init rpc及db
 def parse_args(argv, default_config_files=None, configure_db=True,
                init_rpc=True):
     log.register_options(CONF)

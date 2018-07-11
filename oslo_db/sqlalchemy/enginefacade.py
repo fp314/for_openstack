@@ -734,7 +734,7 @@ class _TransactionContextTLocal(threading.local):
     def __reduce__(self):
         return _TransactionContextTLocal, ()
 
-#test
+
 class _TransactionContextManager(object):
     """Provide context-management and decorator patterns for transactions.
 
@@ -1033,7 +1033,7 @@ class _TransactionContextManager(object):
 
         try:
             if self._mode is not None:
-                with current._produce_block(
+                with current._produce_block(    #生成'session', 'connection',用完关闭
                     mode=self._mode,
                     connection=self._connection,
                     savepoint=self._savepoint,
@@ -1048,13 +1048,13 @@ class _TransactionContextManager(object):
             elif current is not restore:
                 transaction_contexts_by_thread.current = restore
 
-
+#返回threadLocal.current.attr
 def _context_descriptor(attr=None):
     getter = operator.attrgetter(attr)
 
     def _property_for_context(context):
         try:
-            transaction_context = context.transaction_ctx
+            transaction_context = context.transaction_ctx   #前提是threadLocal.current存在
         except exception.NoEngineContextEstablished:
             raise exception.NoEngineContextEstablished(
                 "No TransactionContext is established for "
