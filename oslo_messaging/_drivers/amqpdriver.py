@@ -310,7 +310,7 @@ class AMQPListener(base.PollStyleListener):
         # Closes listener connection
         self.conn.close()
 
-
+#为每个msg_id维持一个队列，存放message_data
 class ReplyWaiters(object):
 
     WAKE_UP = object()
@@ -357,10 +357,10 @@ class ReplyWaiter(object):
     def __init__(self, reply_q, conn, allowed_remote_exmods):
         self.conn = conn
         self.allowed_remote_exmods = allowed_remote_exmods
-        self.msg_id_cache = rpc_amqp._MsgIdCache()
-        self.waiters = ReplyWaiters()
+        self.msg_id_cache = rpc_amqp._MsgIdCache()  #记录msg的_unique_id
+        self.waiters = ReplyWaiters()   #多个msg
 
-        self.conn.declare_direct_consumer(reply_q, self)
+        self.conn.declare_direct_consumer(reply_q, self)    #在队列reply_q监听消费 ？
 
         self._thread_exit_event = threading.Event()
         self._thread = threading.Thread(target=self.poll)
@@ -469,7 +469,7 @@ class AMQPDriverBase(base.BaseDriver):
 
     def _get_exchange(self, target):
         return target.exchange or self._default_exchange
-
+    # 获取connection context(conn管理类)
     def _get_connection(self, purpose=rpc_common.PURPOSE_SEND):
         return rpc_common.ConnectionContext(self._connection_pool,
                                             purpose=purpose)
@@ -479,9 +479,9 @@ class AMQPDriverBase(base.BaseDriver):
             if self._reply_q is not None:
                 return self._reply_q
 
-            reply_q = 'reply_' + uuid.uuid4().hex
+            reply_q = 'reply_' + uuid.uuid4().hex   #rpc回复队列 ?
 
-            conn = self._get_connection(rpc_common.PURPOSE_LISTEN)
+            conn = self._get_connection(rpc_common.PURPOSE_LISTEN)  #创建listen连接
 
             self._waiter = ReplyWaiter(reply_q, conn,
                                        self._allowed_remote_exmods)
@@ -501,11 +501,11 @@ class AMQPDriverBase(base.BaseDriver):
             msg_id = uuid.uuid4().hex
             msg.update({'_msg_id': msg_id})
             msg.update({'_reply_q': self._get_reply_q()})
-
+        #msg._unique_id = uuid
         rpc_amqp._add_unique_id(msg)
         unique_id = msg[rpc_amqp.UNIQUE_ID]
 
-        rpc_amqp.pack_context(msg, ctxt)
+        rpc_amqp.pack_context(msg, ctxt)    #ctxt信息放入msg
 
         if envelope:
             msg = rpc_common.serialize_msg(msg)

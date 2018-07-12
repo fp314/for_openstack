@@ -380,7 +380,7 @@ class DecayingTimer(object):
 PURPOSE_LISTEN = 'listen'
 PURPOSE_SEND = 'send'
 
-#通过with调用，管理connection
+#通过with调用，管理connection（pool中获取释放connection）
 class ConnectionContext(Connection):
     """The class that is actually returned to the create_connection() caller.
 

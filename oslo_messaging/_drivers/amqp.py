@@ -78,7 +78,7 @@ def unpack_context(msg):
     context_dict['reply_q'] = msg.pop('_reply_q', None)
     return RpcContext.from_dict(context_dict)
 
-
+#将context转化为dict，_context_ + key放入msg
 def pack_context(msg, context):
     """Pack context into msg.
 
@@ -96,7 +96,7 @@ def pack_context(msg, context):
     msg.update(('_context_%s' % key, value)
                for (key, value) in context_d)
 
-
+#返回并删除message_data的 _unique_id属性
 class _MsgIdCache(object):
     """This class checks any duplicate messages."""
 
