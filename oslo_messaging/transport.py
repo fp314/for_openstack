@@ -201,10 +201,10 @@ def _get_transport(conf, url=None, allowed_remote_exmods=None, aliases=None,
     if not isinstance(url, TransportURL):
         url = TransportURL.parse(conf, url, aliases)
 
-    kwargs = dict(default_exchange=conf.control_exchange,
+    kwargs = dict(default_exchange=conf.control_exchange,       #default='openstack'
                   allowed_remote_exmods=allowed_remote_exmods)
 
-    try:
+    try:    #实例化oslo_messaging._drivers.impl_rabbit:RabbitDriver
         mgr = driver.DriverManager('oslo.messaging.drivers',
                                    url.transport.split('+')[0],
                                    invoke_on_load=True,
@@ -284,7 +284,7 @@ class TransportHost(object):
         values = ', '.join(['%s=%s' % i for i in attrs])
         return '<TransportHost ' + values + '>'
 
-
+#解析包装MQ  url
 class TransportURL(object):
 
     """A parsed transport URL.
@@ -362,14 +362,14 @@ class TransportURL(object):
             self.query = query
 
         self._deprecation_logged = False
-
+    #get transport name ; 默认rabbit
     @property
     def transport(self):
         if self._transport is None:
-            transport = self.conf.rpc_backend
+            transport = self.conf.rpc_backend   #transport name 默认rabbit
         else:
             transport = self._transport
-        final_transport = self.aliases.get(transport, transport)
+        final_transport = self.aliases.get(transport, transport)    #别名
         if not self._deprecation_logged and final_transport != transport:
             # NOTE(sileht): The first step is deprecate this one cycle.
             # To ensure deployer have updated they configuration during Ocata
@@ -383,7 +383,7 @@ class TransportURL(object):
             self._deprecation_logged = True
 
         return final_transport
-
+    #设置transport name
     @transport.setter
     def transport(self, value):
         self._transport = value
@@ -449,7 +449,7 @@ class TransportURL(object):
             url += '?' + parse.urlencode(self.query, doseq=True)
 
         return url
-
+    #解析url，生成 transport name, virtual_host, hosts, query,做为参数生成TransportURL实例
     @removals.removed_kwarg('aliases',
                             'Parameter aliases is deprecated for removal.')
     @classmethod
@@ -489,14 +489,14 @@ class TransportURL(object):
         """
 
         if not url:
-            conf.register_opts(_transport_opts)
+            conf.register_opts(_transport_opts)     #transport_url、rpc_backend、control_exchange
         url = url or conf.transport_url
         if not url:
             return cls(conf) if aliases is None else cls(conf, aliases=aliases)
 
         if not isinstance(url, six.string_types):
             raise InvalidTransportURL(url, 'Wrong URL type')
-
+        #'http://blog.csdn.net/?ref=toolbar'----> (scheme='http', netloc='blog.csdn.net', path='/', params='', query='ref=toolbar', fragment='')
         url = parse.urlparse(url)
 
         if not url.scheme:

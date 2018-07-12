@@ -380,7 +380,7 @@ class DecayingTimer(object):
 PURPOSE_LISTEN = 'listen'
 PURPOSE_SEND = 'send'
 
-
+#通过with调用，管理connection
 class ConnectionContext(Connection):
     """The class that is actually returned to the create_connection() caller.
 
@@ -392,20 +392,20 @@ class ConnectionContext(Connection):
     and so forth without making the caller be responsible for catching them.
     If possible the function makes sure to return a connection to the pool.
     """
-
+    #purpose类似连接类型，根据连接类型从pool中获取或创建connection
     def __init__(self, connection_pool, purpose):
         """Create a new connection, or get one from the pool."""
         self.connection = None
         self.connection_pool = connection_pool
-        pooled = purpose == PURPOSE_SEND
+        pooled = purpose == PURPOSE_SEND    #判断是否是发送类型连接
         if pooled:
             self.connection = connection_pool.get()
         else:
             # a non-pooled connection is requested, so create a new connection
-            self.connection = connection_pool.create(purpose)
-        self.pooled = pooled
+            self.connection = connection_pool.create(purpose)   #非发送连接则创建
+        self.pooled = pooled    #是否来自pool
         self.connection.pooled = pooled
-
+    #enter和exit实现上下文管理器，可用with
     def __enter__(self):
         """When with ConnectionContext() is used, return self."""
         return self
@@ -415,7 +415,7 @@ class ConnectionContext(Connection):
         If it did not come from a pool, close it.
         """
         if self.connection:
-            if self.pooled:
+            if self.pooled:     #reset connection,reset 失败则create and put
                 # Reset the connection so it's ready for the next caller
                 # to grab from the pool
                 try:
@@ -447,7 +447,7 @@ class ConnectionContext(Connection):
     def close(self):
         """Caller is done with this connection."""
         self._done()
-
+    #包装获取connection属性
     def __getattr__(self, key):
         """Proxy all other calls to the Connection instance."""
         if self.connection:

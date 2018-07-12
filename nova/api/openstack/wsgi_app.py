@@ -47,7 +47,7 @@ def _setup_service(host, name):
     service_ref = objects.Service.get_by_host_and_binary(
         ctxt, host, binary)     #从数据库获取数据，生成sevice
     if service_ref:
-        service._update_service_ref(service_ref)
+        service._update_service_ref(service_ref)    #版本号相关
     else:
         try:
             service_obj = objects.Service(ctxt)
@@ -78,7 +78,7 @@ def init_application(name):
 
     logging.setup(CONF, "nova")
     try:
-        _setup_service(CONF.host, name)
+        _setup_service(CONF.host, name)     #没有则生成nova-osapi_compute service存入数据库，有则更新
     except exception.ServiceTooOld as exc:
         return error_application(exc, name)
 

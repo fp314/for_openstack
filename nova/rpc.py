@@ -11,7 +11,7 @@
 #    WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
 #    License for the specific language governing permissions and limitations
 #    under the License.
-
+#用于限制from * import ***
 __all__ = [
     'init',
     'cleanup',
@@ -60,7 +60,7 @@ EXTRA_EXMODS = []
 def init(conf):
     global TRANSPORT, NOTIFICATION_TRANSPORT, LEGACY_NOTIFIER, NOTIFIER
     exmods = get_allowed_exmods()
-    TRANSPORT = create_transport(get_transport_url())
+    TRANSPORT = create_transport(get_transport_url())   #
     NOTIFICATION_TRANSPORT = messaging.get_notification_transport(
         conf, allowed_remote_exmods=exmods)
     serializer = RequestContextSerializer(JsonPayloadSerializer())

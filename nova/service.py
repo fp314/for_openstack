@@ -157,7 +157,7 @@ class Service(service.Service):
         self.model_disconnected = False
         ctxt = context.get_admin_context()    #待续，，，，，，，，，，，，，，，，
         self.service_ref = objects.Service.get_by_host_and_binary(
-            ctxt, self.host, self.binary)
+            ctxt, self.host, self.binary)       #从数据库获取service对象
         if self.service_ref:
             _update_service_ref(self.service_ref)
 

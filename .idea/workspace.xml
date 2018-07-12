@@ -4,11 +4,10 @@
     <list default="true" id="880eb282-5cb4-4733-84c2-1a59ee7a1d1d" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/nova/api/openstack/wsgi_app.py" afterPath="$PROJECT_DIR$/nova/api/openstack/wsgi_app.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/nova/conf/database.py" afterPath="$PROJECT_DIR$/nova/conf/database.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/nova/config.py" afterPath="$PROJECT_DIR$/nova/config.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/nova/db/sqlalchemy/api.py" afterPath="$PROJECT_DIR$/nova/db/sqlalchemy/api.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/nova/objects/service.py" afterPath="$PROJECT_DIR$/nova/objects/service.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/oslo_db/sqlalchemy/enginefacade.py" afterPath="$PROJECT_DIR$/oslo_db/sqlalchemy/enginefacade.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/nova/rpc.py" afterPath="$PROJECT_DIR$/nova/rpc.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/nova/service.py" afterPath="$PROJECT_DIR$/nova/service.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/oslo_messaging/_drivers/common.py" afterPath="$PROJECT_DIR$/oslo_messaging/_drivers/common.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/oslo_messaging/transport.py" afterPath="$PROJECT_DIR$/oslo_messaging/transport.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -23,234 +22,192 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="nova-api-wsgi" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/nova-api-wsgi">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="462">
-              <caret line="37" column="58" lean-forward="true" selection-start-line="37" selection-start-column="58" selection-end-line="37" selection-end-column="58" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="wsgi.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/nova/api/openstack/compute/wsgi.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="627">
-              <caret line="19" column="31" lean-forward="false" selection-start-line="19" selection-start-column="31" selection-end-line="19" selection-end-column="31" />
+              <caret line="19" column="28" lean-forward="false" selection-start-line="19" selection-start-column="28" selection-end-line="19" selection-end-column="28" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="wsgi_app.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="wsgi_app.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/nova/api/openstack/wsgi_app.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="267">
-              <caret line="47" column="50" lean-forward="false" selection-start-line="47" selection-start-column="50" selection-end-line="47" selection-end-column="50" />
+            <state relative-caret-position="366">
+              <caret line="76" column="17" lean-forward="false" selection-start-line="76" selection-start-column="17" selection-end-line="76" selection-end-column="17" />
               <folding>
                 <element signature="e#626#635#0" expanded="true" />
-                <element signature="e#2143#2439#0" expanded="false" />
+                <element signature="e#2153#2449#0" expanded="false" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="service.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/nova/objects/service.py">
+      <file leaf-file-name="config.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/nova/config.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="335">
-              <caret line="366" column="22" lean-forward="false" selection-start-line="366" selection-start-column="22" selection-end-line="366" selection-end-column="22" />
+            <state relative-caret-position="630">
+              <caret line="54" column="13" lean-forward="false" selection-start-line="54" selection-start-column="13" selection-end-line="54" selection-end-column="13" />
               <folding>
-                <element signature="e#1198#1270#0" expanded="false" />
-                <element signature="e#2558#4876#0" expanded="false" />
-                <element signature="e#5075#5105#0" expanded="false" />
-                <element signature="e#6940#7738#0" expanded="false" />
-                <element signature="e#7893#8790#0" expanded="false" />
-                <element signature="e#8870#9448#0" expanded="false" />
-                <element signature="e#10979#12209#0" expanded="false" />
-                <element signature="e#12296#12407#0" expanded="false" />
-                <element signature="e#12498#12619#0" expanded="false" />
-                <element signature="e#12719#12849#0" expanded="false" />
-                <element signature="e#12951#13223#0" expanded="false" />
-                <element signature="e#13514#13718#0" expanded="false" />
-                <element signature="e#14089#15245#0" expanded="false" />
-                <element signature="e#15297#15798#0" expanded="false" />
-                <element signature="e#15866#16208#0" expanded="false" />
-                <element signature="e#16297#17119#0" expanded="false" />
+                <element signature="e#763#787#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="rpc.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/nova/rpc.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="515">
+              <caret line="232" column="28" lean-forward="false" selection-start-line="232" selection-start-column="28" selection-end-line="232" selection-end-column="28" />
+              <folding>
+                <element signature="e#854#870#0" expanded="true" />
+                <element signature="e#2940#3293#0" expanded="false" />
+                <element signature="e#3336#3386#0" expanded="false" />
+                <element signature="e#3422#3447#0" expanded="false" />
+                <element signature="e#3480#3499#0" expanded="false" />
+                <element signature="e#3532#3568#0" expanded="false" />
+                <element signature="e#3630#3756#0" expanded="false" />
+                <element signature="e#3818#4382#0" expanded="false" />
+                <element signature="e#4455#5326#0" expanded="false" />
+                <element signature="e#5486#5858#0" expanded="false" />
+                <element signature="e#6534#6756#0" expanded="false" />
+                <element signature="e#6805#6887#0" expanded="false" />
+                <element signature="e#6927#7332#0" expanded="false" />
+                <element signature="e#7604#14528#0" expanded="false" />
+                <element signature="e#14584#15616#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="transport.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/oslo_messaging/rpc/transport.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="581">
+              <caret line="45" column="31" lean-forward="false" selection-start-line="45" selection-start-column="31" selection-end-line="45" selection-end-column="31" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="transport.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/oslo_messaging/transport.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="473">
+              <caret line="207" column="11" lean-forward="false" selection-start-line="207" selection-start-column="8" selection-end-line="207" selection-end-column="11" />
+              <folding>
+                <element signature="e#979#993#0" expanded="true" />
+                <element signature="e#1263#2581#0" expanded="false" />
+                <element signature="e#2634#2911#0" expanded="false" />
+                <element signature="e#2944#4409#1" expanded="false" />
+                <element signature="e#4569#4615#0" expanded="false" />
+                <element signature="e#5146#5414#0" expanded="false" />
+                <element signature="e#5482#5832#0" expanded="false" />
+                <element signature="e#5974#6376#0" expanded="false" />
+                <element signature="e#6409#6499#0" expanded="false" />
+                <element signature="e#6699#6833#0" expanded="false" />
+                <element signature="e#6898#7052#0" expanded="false" />
+                <element signature="e#7115#7378#0" expanded="false" />
+                <element signature="e#8605#10071#0" expanded="false" />
+                <element signature="e#10951#21825#0" expanded="false" />
+                <element signature="e#10951#12857#1" expanded="false" />
+                <element signature="e#13102#13591#0" expanded="false" />
+                <element signature="e#13674#14644#0" expanded="false" />
+                <element signature="e#14729#14752#0" expanded="false" />
+                <element signature="e#15435#16708#0" expanded="false" />
+                <element signature="e#16977#21825#0" expanded="false" />
+                <element signature="e#16977#18134#1" expanded="false" />
+                <marker date="1531381524095" expanded="false" signature="10102:10903" ph="..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="impl_rabbit.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/oslo_messaging/_drivers/impl_rabbit.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="26">
+              <caret line="259" column="23" lean-forward="false" selection-start-line="259" selection-start-column="23" selection-end-line="259" selection-end-column="23" />
+              <folding>
+                <element signature="e#8957#10118#0" expanded="false" />
+                <element signature="e#10152#10634#0" expanded="false" />
+                <element signature="e#10665#15184#0" expanded="false" />
+                <element signature="e#15327#17938#0" expanded="false" />
+                <element signature="e#17971#54343#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="amqpdriver.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/oslo_messaging/_drivers/amqpdriver.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-211">
+              <caret line="499" column="25" lean-forward="false" selection-start-line="499" selection-start-column="11" selection-end-line="499" selection-end-column="25" />
+              <folding>
+                <element signature="e#637#651#0" expanded="true" />
+                <element signature="e#1408#2628#0" expanded="false" />
+                <element signature="e#2688#6897#0" expanded="false" />
+                <element signature="e#6944#8524#0" expanded="false" />
+                <element signature="e#8576#11755#0" expanded="false" />
+                <element signature="e#11791#13311#0" expanded="false" />
+                <element signature="e#13345#17087#0" expanded="false" />
+                <element signature="e#21192#21311#0" expanded="false" />
+                <element signature="e#21378#22125#0" expanded="false" />
+                <element signature="e#22265#22756#0" expanded="false" />
+                <element signature="e#22789#23163#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="common.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/oslo_messaging/_drivers/common.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="3091">
+              <caret line="382" column="22" lean-forward="false" selection-start-line="382" selection-start-column="22" selection-end-line="382" selection-end-column="22" />
+              <folding>
+                <element signature="e#2567#3330#0" expanded="false" />
+                <element signature="e#3366#4287#0" expanded="false" />
+                <element signature="e#4973#5537#0" expanded="false" />
+                <element signature="e#5590#6575#0" expanded="false" />
+                <element signature="e#6645#8827#0" expanded="false" />
+                <element signature="e#8866#9364#0" expanded="false" />
+                <element signature="e#9405#9700#0" expanded="false" />
+                <element signature="e#9735#9956#0" expanded="false" />
+                <element signature="e#9989#11578#0" expanded="false" />
+                <element signature="e#11614#12201#0" expanded="false" />
+                <element signature="e#13342#16246#0" expanded="false" />
+                <element signature="e#14652#15647#0" expanded="false" />
+                <element signature="e#16054#16246#0" expanded="false" />
+                <element signature="e#16297#18635#0" expanded="false" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file leaf-file-name="base.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/oslo_versionedobjects/base.py">
+        <entry file="file://$PROJECT_DIR$/oslo_messaging/_drivers/base.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="300">
-              <caret line="623" column="8" lean-forward="false" selection-start-line="623" selection-start-column="8" selection-end-line="623" selection-end-column="8" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="api.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/nova/db/api.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="490">
-              <caret line="188" column="30" lean-forward="false" selection-start-line="188" selection-start-column="16" selection-end-line="188" selection-end-column="30" />
+            <state relative-caret-position="316">
+              <caret line="335" column="61" lean-forward="false" selection-start-line="335" selection-start-column="40" selection-end-line="335" selection-end-column="61" />
               <folding>
-                <element signature="e#2393#2502#0" expanded="false" />
-                <element signature="e#2784#3009#0" expanded="false" />
-                <element signature="e#3056#3180#0" expanded="false" />
-                <element signature="e#3239#3502#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="api.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/nova/db/sqlalchemy/api.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="211">
-              <caret line="609" column="15" lean-forward="false" selection-start-line="609" selection-start-column="4" selection-end-line="609" selection-end-column="15" />
-              <folding>
-                <element signature="e#2724#3438#0" expanded="false" />
-                <element signature="e#4194#4449#0" expanded="false" />
-                <element signature="e#4743#5033#0" expanded="false" />
-                <element signature="e#5062#5121#0" expanded="false" />
-                <element signature="e#5277#5350#0" expanded="false" />
-                <element signature="e#5381#5852#0" expanded="false" />
-                <element signature="e#5902#6281#0" expanded="false" />
-                <element signature="e#6321#6690#0" expanded="false" />
-                <element signature="e#6727#7625#0" expanded="false" />
-                <element signature="e#7668#8085#0" expanded="false" />
-                <element signature="e#8170#8587#0" expanded="false" />
-                <element signature="e#8642#9083#0" expanded="false" />
-                <element signature="e#11131#11892#0" expanded="false" />
-                <element signature="e#11950#12076#0" expanded="false" />
-                <element signature="e#12137#12230#0" expanded="false" />
-                <element signature="e#12288#12358#0" expanded="false" />
-                <element signature="e#12422#12539#0" expanded="false" />
-                <element signature="e#12601#12716#0" expanded="false" />
-                <element signature="e#12741#12970#0" expanded="false" />
-                <element signature="e#13028#13057#0" expanded="false" />
-                <element signature="e#13088#13120#0" expanded="false" />
-                <element signature="e#13151#13185#0" expanded="false" />
-                <element signature="e#13219#13510#0" expanded="false" />
-                <element signature="e#13551#13836#0" expanded="false" />
-                <element signature="e#13879#14023#0" expanded="false" />
-                <element signature="e#14066#14196#0" expanded="false" />
-                <element signature="e#14432#14669#0" expanded="false" />
-                <element signature="e#14768#15337#0" expanded="false" />
-                <element signature="e#15693#15897#0" expanded="false" />
-                <element signature="e#15997#16403#0" expanded="false" />
-                <element signature="e#16484#16633#0" expanded="false" />
-                <element signature="e#16715#16886#0" expanded="false" />
-                <element signature="e#16979#17191#0" expanded="false" />
-                <element signature="e#17299#17509#0" expanded="false" />
-                <element signature="e#17668#18111#0" expanded="false" />
-                <element signature="e#18578#18703#0" expanded="false" />
-                <element signature="e#18799#19073#0" expanded="false" />
-                <element signature="e#19146#20180#0" expanded="false" />
-                <element signature="e#20874#22135#0" expanded="false" />
-                <element signature="e#22218#22562#0" expanded="false" />
-                <element signature="e#22641#22813#0" expanded="false" />
-                <element signature="e#22898#23248#0" expanded="false" />
-                <element signature="e#23342#23513#0" expanded="false" />
-                <element signature="e#23617#23816#0" expanded="false" />
-                <element signature="e#23913#24064#0" expanded="false" />
-                <element signature="e#24135#24173#0" expanded="false" />
-                <element signature="e#24279#24381#0" expanded="false" />
-                <element signature="e#24491#24557#0" expanded="false" />
-                <element signature="e#24659#24839#0" expanded="false" />
-                <element signature="e#24917#25217#0" expanded="false" />
-                <element signature="e#25373#25830#0" expanded="false" />
-                <element signature="e#25912#26175#0" expanded="false" />
-                <element signature="e#26249#28761#0" expanded="false" />
-                <element signature="e#28860#29044#0" expanded="false" />
-                <element signature="e#29137#29284#0" expanded="false" />
-                <element signature="e#29371#29512#0" expanded="false" />
-                <element signature="e#29623#29818#0" expanded="false" />
-                <element signature="e#29927#30374#0" expanded="false" />
-                <element signature="e#30463#30659#0" expanded="false" />
-                <element signature="e#30943#31927#0" expanded="false" />
-                <element signature="e#32041#32420#0" expanded="false" />
-                <element signature="e#32472#32768#0" expanded="false" />
-                <element signature="e#32865#33625#0" expanded="false" />
-                <element signature="e#33719#33977#0" expanded="false" />
-                <element signature="e#34040#34369#0" expanded="false" />
-                <element signature="e#34607#35475#0" expanded="false" />
-                <element signature="e#35640#35998#0" expanded="false" />
-                <element signature="e#36094#36197#0" expanded="false" />
-                <element signature="e#36298#36841#0" expanded="false" />
-                <element signature="e#36883#36948#0" expanded="false" />
-                <element signature="e#37018#37258#0" expanded="false" />
-                <element signature="e#37342#37642#0" expanded="false" />
-                <element signature="e#37752#38150#0" expanded="false" />
-                <element signature="e#38253#38305#0" expanded="false" />
-                <element signature="e#38364#39203#0" expanded="false" />
-                <element signature="e#39318#39637#0" expanded="false" />
-                <element signature="e#39748#39871#0" expanded="false" />
-                <element signature="e#39974#40246#0" expanded="false" />
-                <element signature="e#40359#40533#0" expanded="false" />
-                <element signature="e#40589#40880#0" expanded="false" />
-                <element signature="e#40974#41139#0" expanded="false" />
-                <element signature="e#41239#41399#0" expanded="false" />
-                <element signature="e#41480#41592#0" expanded="false" />
-                <element signature="e#41660#41730#0" expanded="false" />
-                <element signature="e#42044#43966#0" expanded="false" />
-                <element signature="e#44254#46296#0" expanded="false" />
-                <element signature="e#46387#46627#0" expanded="false" />
-                <element signature="e#46720#46910#0" expanded="false" />
-                <element signature="e#47008#47130#0" expanded="false" />
-                <element signature="e#47229#48592#0" expanded="false" />
-                <element signature="e#48695#49352#0" expanded="false" />
-                <element signature="e#49419#49572#0" expanded="false" />
-                <element signature="e#49694#49812#0" expanded="false" />
-                <element signature="e#49889#50886#0" expanded="false" />
-                <element signature="e#51004#51390#0" expanded="false" />
-                <marker date="1531297097413" expanded="true" signature="14440:14497" ph="DELETE FROM " />
-                <marker date="1531297097413" expanded="true" signature="14468:14496" ph="SELECT T1.mi... missing_value" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="models.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/nova/db/sqlalchemy/models.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="132">
-              <caret line="75" column="13" lean-forward="false" selection-start-line="75" selection-start-column="6" selection-end-line="75" selection-end-column="13" />
-              <folding>
-                <element signature="e#1526#2827#0" expanded="false" />
-                <element signature="e#4168#7173#0" expanded="false" />
-                <element signature="e#7239#7641#0" expanded="false" />
-                <element signature="e#7704#13206#0" expanded="false" />
-                <element signature="e#13278#14068#0" expanded="false" />
-                <element signature="e#14136#15031#0" expanded="false" />
-                <element signature="e#15194#16276#0" expanded="false" />
-                <element signature="e#16336#17064#0" expanded="false" />
-                <element signature="e#17135#17926#0" expanded="false" />
-                <element signature="e#17991#18529#0" expanded="false" />
-                <element signature="e#18594#19221#0" expanded="false" />
-                <element signature="e#19287#20222#0" expanded="false" />
-                <element signature="e#20371#21051#0" expanded="false" />
-                <element signature="e#21124#23143#0" expanded="false" />
-                <element signature="e#23230#23617#0" expanded="false" />
-                <element signature="e#23685#24956#0" expanded="false" />
-                <element signature="e#25035#26144#0" expanded="false" />
-                <element signature="e#26230#26512#0" expanded="false" />
-                <element signature="e#26587#26909#0" expanded="false" />
-                <element signature="e#27066#27653#0" expanded="false" />
-                <element signature="e#27717#29582#0" expanded="false" />
-                <element signature="e#29644#31430#0" expanded="false" />
-                <element signature="e#31501#32198#0" expanded="false" />
-                <element signature="e#32319#35137#0" expanded="false" />
-                <element signature="e#35202#36517#0" expanded="false" />
-                <element signature="e#36581#37051#0" expanded="false" />
-                <element signature="e#37117#37721#0" expanded="false" />
-                <element signature="e#37783#38306#0" expanded="false" />
-                <element signature="e#38377#39119#0" expanded="false" />
+                <element signature="e#792#1191#0" expanded="false" />
+                <element signature="e#1227#2092#0" expanded="false" />
+                <element signature="e#4312#5935#0" expanded="false" />
+                <element signature="e#6007#8353#0" expanded="false" />
+                <element signature="e#8416#10357#0" expanded="false" />
+                <element signature="e#10406#12034#0" expanded="false" />
+                <element signature="e#12099#12837#1" expanded="false" />
+                <element signature="e#13185#13475#0" expanded="false" />
+                <element signature="e#13612#17480#0" expanded="false" />
+                <element signature="e#17586#20117#0" expanded="false" />
+                <element signature="e#17586#20117#2" expanded="false" />
+                <element signature="e#20208#22466#0" expanded="false" />
+                <element signature="e#22630#24542#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -260,8 +217,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>APIRouterV21</find>
-      <find>service_obj</find>
       <find>SERVICE_VERSION</find>
       <find>save</find>
       <find>indirection_api</find>
@@ -290,6 +245,8 @@
       <find>'session', 'connection', 'transaction'</find>
       <find>service_get_by_host_and_binary</find>
       <find>service_update</find>
+      <find>service_destroy</find>
+      <find>RabbitDriver</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -304,7 +261,6 @@
         <option value="$PROJECT_DIR$/oslo_service/service.py" />
         <option value="$PROJECT_DIR$/oslo_utils/importutils.py" />
         <option value="$PROJECT_DIR$/nova/utils.py" />
-        <option value="$PROJECT_DIR$/nova/service.py" />
         <option value="$PROJECT_DIR$/oslo_versionedobjects/fields.py" />
         <option value="$PROJECT_DIR$/nova/objects/base.py" />
         <option value="$PROJECT_DIR$/oslo_versionedobjects/base.py" />
@@ -320,6 +276,10 @@
         <option value="$PROJECT_DIR$/nova/db/sqlalchemy/api.py" />
         <option value="$PROJECT_DIR$/nova/objects/service.py" />
         <option value="$PROJECT_DIR$/nova/api/openstack/wsgi_app.py" />
+        <option value="$PROJECT_DIR$/nova/service.py" />
+        <option value="$PROJECT_DIR$/nova/rpc.py" />
+        <option value="$PROJECT_DIR$/oslo_messaging/transport.py" />
+        <option value="$PROJECT_DIR$/oslo_messaging/_drivers/common.py" />
       </list>
     </option>
   </component>
@@ -330,8 +290,8 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="328" />
-    <option name="y" value="179" />
+    <option name="x" value="-4" />
+    <option name="y" value="62" />
     <option name="width" value="1523" />
     <option name="height" value="826" />
   </component>
@@ -350,8 +310,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scratches" />
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -362,36 +320,20 @@
             <path>
               <item name="openstack_src" type="b2602c69:ProjectViewProjectNode" />
               <item name="openstack_src" type="462c0819:PsiDirectoryNode" />
-              <item name="nova" type="462c0819:PsiDirectoryNode" />
+              <item name="oslo_messaging" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="openstack_src" type="b2602c69:ProjectViewProjectNode" />
               <item name="openstack_src" type="462c0819:PsiDirectoryNode" />
-              <item name="nova" type="462c0819:PsiDirectoryNode" />
-              <item name="db" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="openstack_src" type="b2602c69:ProjectViewProjectNode" />
-              <item name="openstack_src" type="462c0819:PsiDirectoryNode" />
-              <item name="nova" type="462c0819:PsiDirectoryNode" />
-              <item name="db" type="462c0819:PsiDirectoryNode" />
-              <item name="sqlalchemy" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="openstack_src" type="b2602c69:ProjectViewProjectNode" />
-              <item name="openstack_src" type="462c0819:PsiDirectoryNode" />
-              <item name="oslo_db" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="openstack_src" type="b2602c69:ProjectViewProjectNode" />
-              <item name="openstack_src" type="462c0819:PsiDirectoryNode" />
-              <item name="oslo_db" type="462c0819:PsiDirectoryNode" />
-              <item name="sqlalchemy" type="462c0819:PsiDirectoryNode" />
+              <item name="oslo_messaging" type="462c0819:PsiDirectoryNode" />
+              <item name="_drivers" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -517,122 +459,11 @@
           <option name="timeStamp" value="4" />
         </line-breakpoint>
       </breakpoints>
-      <option name="time" value="21" />
+      <option name="time" value="22" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/oslo_versionedobjects/test.py" />
-    <entry file="file://$PROJECT_DIR$/oslo_versionedobjects/examples/iot_bulb.py" />
-    <entry file="file://$PROJECT_DIR$/nova/objects/fields.py" />
-    <entry file="file://$PROJECT_DIR$/nova/objects/request_spec.py" />
-    <entry file="file://D:/Python27/Lib/site-packages/eventlet/tpool.py" />
-    <entry file="file://$PROJECT_DIR$/oslo_utils/excutils.py" />
-    <entry file="file://$PROJECT_DIR$/oslo_versionedobjects/fields.py" />
-    <entry file="file://D:/Python/python27/Lib/functools.py" />
-    <entry file="file://D:/Python/python27/Lib/warnings.py" />
-    <entry file="file://$PROJECT_DIR$/oslo_config/cfg.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="828">
-          <caret line="3503" column="0" lean-forward="false" selection-start-line="3503" selection-start-column="0" selection-end-line="3503" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://D:/Python27/Lib/site-packages/sqlalchemy/engine/threadlocal.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="308">
-          <caret line="76" column="8" lean-forward="false" selection-start-line="76" selection-start-column="8" selection-end-line="76" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://D:/Python27/Lib/site-packages/sqlalchemy/engine/base.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="308">
-          <caret line="612" column="8" lean-forward="false" selection-start-line="612" selection-start-column="8" selection-end-line="612" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/oslo_db/sqlalchemy/utils.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4059">
-          <caret line="301" column="70" lean-forward="false" selection-start-line="301" selection-start-column="49" selection-end-line="301" selection-end-column="70" />
-          <folding>
-            <element signature="e#4411#10338#0" expanded="false" />
-            <element signature="e#7088#8124#0" expanded="false" />
-            <element signature="e#8182#10258#0" expanded="false" />
-            <element signature="e#10375#10607#0" expanded="false" />
-            <element signature="e#11663#15548#1" expanded="false" />
-            <marker date="1531100918987" expanded="true" signature="38053:38185" ph="SELECT table... tables" />
-            <marker date="1531100918987" expanded="true" signature="39018:39154" ph="SELECT table... tables" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/.PyCharm2017.2/system/python_stubs/1494736245/_functools.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="308">
-          <caret line="41" column="8" lean-forward="false" selection-start-line="41" selection-start-column="8" selection-end-line="41" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://D:/Python27/Lib/site-packages/debtcollector/renames.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="308">
-          <caret line="24" column="4" lean-forward="false" selection-start-line="24" selection-start-column="4" selection-end-line="24" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://D:/Python27/Lib/uuid.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://D:/Python27/Lib/_abcoll.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="308">
-          <caret line="492" column="6" lean-forward="false" selection-start-line="492" selection-start-column="6" selection-end-line="492" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/nova/policy.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="473">
-          <caret line="22" column="16" lean-forward="false" selection-start-line="22" selection-start-column="5" selection-end-line="22" selection-end-column="16" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/.PyCharm2017.2/system/python_stubs/1494736245/operator.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="308">
-          <caret line="492" column="8" lean-forward="false" selection-start-line="492" selection-start-column="8" selection-end-line="492" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/oslo_context/context.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="112">
-          <caret line="173" column="6" lean-forward="false" selection-start-line="173" selection-start-column="6" selection-end-line="173" selection-end-column="6" />
-          <folding>
-            <element signature="e#1359#2626#0" expanded="false" />
-            <element signature="e#2660#2730#0" expanded="false" />
-            <element signature="e#4266#4684#0" expanded="false" />
-            <element signature="e#4751#5135#0" expanded="false" />
-            <element signature="e#10492#10576#0" expanded="false" />
-            <element signature="e#12095#13182#0" expanded="false" />
-            <element signature="e#13226#13888#0" expanded="false" />
-            <element signature="e#13937#14260#0" expanded="false" />
-            <element signature="e#14638#16209#0" expanded="false" />
-            <element signature="e#18384#18668#0" expanded="false" />
-            <element signature="e#18739#19055#0" expanded="false" />
-            <element signature="e#19092#19294#0" expanded="false" />
-            <element signature="e#19320#19459#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/oslo_db/sqlalchemy/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -653,7 +484,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="209">
           <caret line="44" column="8" lean-forward="false" selection-start-line="44" selection-start-column="8" selection-end-line="44" selection-end-column="8" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -661,7 +491,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -673,19 +502,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/.PyCharm2017.2/system/python_stubs/1494736245/__builtin__.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="308">
-          <caret line="747" column="8" lean-forward="false" selection-start-line="747" selection-start-column="8" selection-end-line="747" selection-end-column="8" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/nova/tests/fixtures.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="308">
           <caret line="609" column="13" lean-forward="false" selection-start-line="609" selection-start-column="13" selection-end-line="609" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -701,7 +521,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-2769">
           <caret line="15" column="0" lean-forward="false" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -713,45 +532,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/nova/service.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="531">
-          <caret line="75" column="45" lean-forward="true" selection-start-line="75" selection-start-column="45" selection-end-line="75" selection-end-column="45" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/nova/conf/database.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="242">
           <caret line="116" column="94" lean-forward="false" selection-start-line="116" selection-start-column="94" selection-end-line="116" selection-end-column="94" />
-          <folding>
-            <element signature="e#2111#3875#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/nova-api-wsgi">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="462">
-          <caret line="37" column="58" lean-forward="true" selection-start-line="37" selection-start-column="58" selection-end-line="37" selection-end-column="58" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/nova/api/openstack/compute/wsgi.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="627">
-          <caret line="19" column="31" lean-forward="false" selection-start-line="19" selection-start-column="31" selection-end-line="19" selection-end-column="31" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/nova/config.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="671">
-          <caret line="57" column="15" lean-forward="true" selection-start-line="57" selection-start-column="15" selection-end-line="57" selection-end-column="15" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -760,7 +544,7 @@
         <state relative-caret-position="447">
           <caret line="1035" column="79" lean-forward="false" selection-start-line="1035" selection-start-column="79" selection-end-line="1035" selection-end-column="79" />
           <folding>
-            <element signature="e#574#591#0" expanded="true" />
+            <element signature="e#574#591#0" expanded="false" />
             <element signature="e#977#1184#0" expanded="false" />
             <element signature="e#1876#3222#0" expanded="false" />
             <element signature="e#3776#5715#0" expanded="false" />
@@ -814,48 +598,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/nova/objects/base.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="308">
-          <caret line="77" column="41" lean-forward="false" selection-start-line="77" selection-start-column="41" selection-end-line="77" selection-end-column="41" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/nova/context.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="424">
-          <caret line="80" column="25" lean-forward="true" selection-start-line="80" selection-start-column="25" selection-end-line="80" selection-end-column="25" />
-          <folding>
-            <element signature="e#848#885#0" expanded="false" />
-            <element signature="e#2108#3050#0" expanded="false" />
-            <element signature="e#3266#3385#1" expanded="false" />
-            <element signature="e#5942#6099#0" expanded="false" />
-            <element signature="e#6142#6167#0" expanded="false" />
-            <element signature="e#6224#6457#0" expanded="false" />
-            <element signature="e#6500#6522#0" expanded="false" />
-            <element signature="e#6852#6870#0" expanded="false" />
-            <element signature="e#6936#6955#0" expanded="false" />
-            <element signature="e#7002#7018#0" expanded="false" />
-            <element signature="e#7078#7095#0" expanded="false" />
-            <element signature="e#7128#8603#0" expanded="false" />
-            <element signature="e#8662#9358#0" expanded="false" />
-            <element signature="e#9431#9815#0" expanded="false" />
-            <element signature="e#9943#10405#0" expanded="false" />
-            <element signature="e#10496#11660#0" expanded="false" />
-            <element signature="e#11749#11869#0" expanded="false" />
-            <element signature="e#11966#12323#0" expanded="false" />
-            <element signature="e#12372#12985#0" expanded="false" />
-            <element signature="e#13022#13256#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://D:/Python27/Lib/site-packages/sqlalchemy/ext/declarative/api.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="300">
           <caret line="283" column="4" lean-forward="false" selection-start-line="283" selection-start-column="4" selection-end-line="283" selection-end-column="4" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -863,7 +609,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="300">
           <caret line="753" column="6" lean-forward="false" selection-start-line="753" selection-start-column="6" selection-end-line="753" selection-end-column="6" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -871,7 +616,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-195">
           <caret line="83" column="6" lean-forward="false" selection-start-line="83" selection-start-column="6" selection-end-line="83" selection-end-column="6" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -895,27 +639,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/oslo_versionedobjects/base.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="623" column="8" lean-forward="false" selection-start-line="623" selection-start-column="8" selection-end-line="623" selection-end-column="8" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/nova/db/api.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="490">
-          <caret line="188" column="30" lean-forward="false" selection-start-line="188" selection-start-column="16" selection-end-line="188" selection-end-column="30" />
-          <folding>
-            <element signature="e#2393#2502#0" expanded="false" />
-            <element signature="e#2784#3009#0" expanded="false" />
-            <element signature="e#3056#3180#0" expanded="false" />
-            <element signature="e#3239#3502#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/oslo_db/api.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="554">
@@ -930,12 +653,27 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/nova/notifications/objects/service.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-99">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/oslo_service/service.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="651" column="6" lean-forward="false" selection-start-line="651" selection-start-column="6" selection-end-line="651" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/nova/db/sqlalchemy/models.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="132">
-          <caret line="75" column="13" lean-forward="false" selection-start-line="75" selection-start-column="6" selection-end-line="75" selection-end-column="13" />
+        <state relative-caret-position="525">
+          <caret line="78" column="29" lean-forward="false" selection-start-line="78" selection-start-column="21" selection-end-line="78" selection-end-column="29" />
           <folding>
-            <element signature="e#1526#2827#0" expanded="false" />
+            <element signature="e#1575#2827#0" expanded="false" />
             <element signature="e#4168#7173#0" expanded="false" />
             <element signature="e#7239#7641#0" expanded="false" />
             <element signature="e#7704#13206#0" expanded="false" />
@@ -968,10 +706,23 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/nova/db/api.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="680">
+          <caret line="105" column="31" lean-forward="false" selection-start-line="105" selection-start-column="16" selection-end-line="105" selection-end-column="31" />
+          <folding>
+            <element signature="e#2393#2502#0" expanded="false" />
+            <element signature="e#2784#3009#0" expanded="false" />
+            <element signature="e#3056#3180#0" expanded="false" />
+            <element signature="e#3239#3502#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/nova/db/sqlalchemy/api.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="211">
-          <caret line="609" column="15" lean-forward="false" selection-start-line="609" selection-start-column="4" selection-end-line="609" selection-end-column="15" />
+        <state relative-caret-position="2772">
+          <caret line="238" column="4" lean-forward="false" selection-start-line="238" selection-start-column="4" selection-end-line="238" selection-end-column="4" />
           <folding>
             <element signature="e#2724#3438#0" expanded="false" />
             <element signature="e#4194#4449#0" expanded="false" />
@@ -982,7 +733,6 @@
             <element signature="e#5902#6281#0" expanded="false" />
             <element signature="e#6321#6690#0" expanded="false" />
             <element signature="e#6727#7625#0" expanded="false" />
-            <element signature="e#7668#8085#0" expanded="false" />
             <element signature="e#8170#8587#0" expanded="false" />
             <element signature="e#8642#9083#0" expanded="false" />
             <element signature="e#11131#11892#0" expanded="false" />
@@ -1000,7 +750,6 @@
             <element signature="e#13879#14023#0" expanded="false" />
             <element signature="e#14066#14196#0" expanded="false" />
             <element signature="e#14432#14669#0" expanded="false" />
-            <element signature="e#14768#15337#0" expanded="false" />
             <element signature="e#15693#15897#0" expanded="false" />
             <element signature="e#15997#16403#0" expanded="false" />
             <element signature="e#16484#16633#0" expanded="false" />
@@ -1074,18 +823,74 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/nova/notifications/objects/service.py">
+    <entry file="file://$USER_HOME$/.PyCharm2017.2/system/python_stubs/1494736245/__builtin__.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-99">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        <state relative-caret-position="300">
+          <caret line="747" column="8" lean-forward="false" selection-start-line="747" selection-start-column="8" selection-end-line="747" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/oslo_versionedobjects/base.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1985">
+          <caret line="232" column="6" lean-forward="false" selection-start-line="232" selection-start-column="6" selection-end-line="232" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/nova/db/base.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="440">
+          <caret line="26" column="6" lean-forward="false" selection-start-line="26" selection-start-column="6" selection-end-line="26" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/oslo_service/periodic_task.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="671">
+          <caret line="174" column="6" lean-forward="false" selection-start-line="174" selection-start-column="6" selection-end-line="174" selection-end-column="6" />
+          <folding>
+            <element signature="e#873#976#0" expanded="false" />
+            <element signature="e#1138#3318#0" expanded="false" />
+            <element signature="e#3357#5298#0" expanded="false" />
+            <element signature="e#5347#6065#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/nova/manager.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="515">
+          <caret line="70" column="6" lean-forward="false" selection-start-line="70" selection-start-column="6" selection-end-line="70" selection-end-column="6" />
+          <folding>
+            <element signature="e#2728#3497#0" expanded="false" />
+            <element signature="e#3577#5439#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/oslo_messaging/serializer.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="292">
+          <caret line="25" column="6" lean-forward="false" selection-start-line="25" selection-start-column="6" selection-end-line="25" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/nova/objects/base.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="292">
+          <caret line="183" column="40" lean-forward="false" selection-start-line="183" selection-start-column="40" selection-end-line="183" selection-end-column="40" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/nova/objects/service.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="335">
-          <caret line="366" column="22" lean-forward="false" selection-start-line="366" selection-start-column="22" selection-end-line="366" selection-end-column="22" />
+        <state relative-caret-position="589">
+          <caret line="218" column="8" lean-forward="false" selection-start-line="218" selection-start-column="8" selection-end-line="218" selection-end-column="8" />
           <folding>
             <element signature="e#1198#1270#0" expanded="false" />
             <element signature="e#2558#4876#0" expanded="false" />
@@ -1097,23 +902,319 @@
             <element signature="e#12296#12407#0" expanded="false" />
             <element signature="e#12498#12619#0" expanded="false" />
             <element signature="e#12719#12849#0" expanded="false" />
-            <element signature="e#12951#13223#0" expanded="false" />
+            <element signature="e#13354#13406#0" expanded="false" />
             <element signature="e#13514#13718#0" expanded="false" />
+            <element signature="e#13909#14041#0" expanded="false" />
             <element signature="e#14089#15245#0" expanded="false" />
             <element signature="e#15297#15798#0" expanded="false" />
             <element signature="e#15866#16208#0" expanded="false" />
             <element signature="e#16297#17119#0" expanded="false" />
+            <element signature="e#17754#19047#0" expanded="false" />
+            <element signature="e#19339#19756#0" expanded="false" />
+            <element signature="e#19854#22616#0" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/nova/context.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1423">
+          <caret line="313" column="4" lean-forward="false" selection-start-line="313" selection-start-column="4" selection-end-line="313" selection-end-column="4" />
+          <folding>
+            <element signature="e#2108#3050#0" expanded="false" />
+            <element signature="e#3266#3385#1" expanded="false" />
+            <element signature="e#3726#5890#0" expanded="false" />
+            <element signature="e#5942#6099#0" expanded="false" />
+            <element signature="e#6142#6167#0" expanded="false" />
+            <element signature="e#6224#6457#0" expanded="false" />
+            <element signature="e#6500#6522#0" expanded="false" />
+            <element signature="e#6852#6870#0" expanded="false" />
+            <element signature="e#6936#6955#0" expanded="false" />
+            <element signature="e#7002#7018#0" expanded="false" />
+            <element signature="e#7078#7095#0" expanded="false" />
+            <element signature="e#7128#8603#0" expanded="false" />
+            <element signature="e#8662#9358#0" expanded="false" />
+            <element signature="e#9431#9815#0" expanded="false" />
+            <element signature="e#9943#10405#0" expanded="false" />
+            <element signature="e#10496#11660#0" expanded="false" />
+            <element signature="e#11749#11869#0" expanded="false" />
+            <element signature="e#11966#12323#0" expanded="false" />
+            <element signature="e#12372#12985#0" expanded="false" />
+            <element signature="e#13022#13256#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/nova/service.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="33">
+          <caret line="188" column="0" lean-forward="false" selection-start-line="188" selection-start-column="0" selection-end-line="189" selection-end-column="0" />
+          <folding>
+            <element signature="e#2437#2870#0" expanded="false" />
+            <element signature="e#2911#3326#0" expanded="false" />
+            <element signature="e#3375#3657#0" expanded="false" />
+            <element signature="e#3696#3947#1" expanded="false" />
+            <element signature="e#5275#5588#0" expanded="false" />
+            <element signature="e#8175#8256#0" expanded="false" />
+            <element signature="e#8516#10003#0" expanded="false" />
+            <element signature="e#10033#10474#0" expanded="false" />
+            <element signature="e#10504#10830#0" expanded="false" />
+            <element signature="e#10892#11060#0" expanded="false" />
+            <element signature="e#11123#11430#0" expanded="false" />
+            <element signature="e#11524#15785#0" expanded="false" />
+            <element signature="e#15816#15877#0" expanded="false" />
+            <element signature="e#16080#16298#0" expanded="false" />
+            <element signature="e#16317#16333#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/nova-api-wsgi">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="638">
+          <caret line="54" column="32" lean-forward="false" selection-start-line="54" selection-start-column="32" selection-end-line="54" selection-end-column="32" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/nova/api/openstack/compute/wsgi.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="627">
+          <caret line="19" column="28" lean-forward="false" selection-start-line="19" selection-start-column="28" selection-end-line="19" selection-end-column="28" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/nova/api/openstack/wsgi_app.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="267">
-          <caret line="47" column="50" lean-forward="false" selection-start-line="47" selection-start-column="50" selection-end-line="47" selection-end-column="50" />
+        <state relative-caret-position="366">
+          <caret line="76" column="17" lean-forward="false" selection-start-line="76" selection-start-column="17" selection-end-line="76" selection-end-column="17" />
           <folding>
             <element signature="e#626#635#0" expanded="true" />
-            <element signature="e#2143#2439#0" expanded="false" />
+            <element signature="e#2153#2449#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/oslo_messaging/exceptions.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/oslo_messaging/notify/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/oslo_messaging/rpc/dispatcher.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-297">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/nova/exception.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="65">
+          <caret line="26" column="12" lean-forward="false" selection-start-line="26" selection-start-column="7" selection-end-line="26" selection-end-column="12" />
+          <folding>
+            <element signature="e#1086#2060#0" expanded="false" />
+            <element signature="e#2099#3592#0" expanded="false" />
+            <element signature="e#3639#3688#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/nova/config.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="630">
+          <caret line="54" column="13" lean-forward="false" selection-start-line="54" selection-start-column="13" selection-end-line="54" selection-end-column="13" />
+          <folding>
+            <element signature="e#763#787#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$APPLICATION_HOME_DIR$/helpers/typeshed/third_party/2/six/moves/urllib/parse.pyi">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://D:/Python27/Lib/urlparse.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="136" column="4" lean-forward="false" selection-start-line="136" selection-start-column="4" selection-end-line="136" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/nova/rpc.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="515">
+          <caret line="232" column="28" lean-forward="false" selection-start-line="232" selection-start-column="28" selection-end-line="232" selection-end-column="28" />
+          <folding>
+            <element signature="e#854#870#0" expanded="true" />
+            <element signature="e#2940#3293#0" expanded="false" />
+            <element signature="e#3336#3386#0" expanded="false" />
+            <element signature="e#3422#3447#0" expanded="false" />
+            <element signature="e#3480#3499#0" expanded="false" />
+            <element signature="e#3532#3568#0" expanded="false" />
+            <element signature="e#3630#3756#0" expanded="false" />
+            <element signature="e#3818#4382#0" expanded="false" />
+            <element signature="e#4455#5326#0" expanded="false" />
+            <element signature="e#5486#5858#0" expanded="false" />
+            <element signature="e#6534#6756#0" expanded="false" />
+            <element signature="e#6805#6887#0" expanded="false" />
+            <element signature="e#6927#7332#0" expanded="false" />
+            <element signature="e#7604#14528#0" expanded="false" />
+            <element signature="e#14584#15616#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/oslo_messaging/rpc/transport.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="581">
+          <caret line="45" column="31" lean-forward="false" selection-start-line="45" selection-start-column="31" selection-end-line="45" selection-end-column="31" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/oslo_messaging/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="526">
+          <caret line="16" column="11" lean-forward="false" selection-start-line="16" selection-start-column="11" selection-end-line="16" selection-end-column="11" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/oslo_messaging/transport.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="473">
+          <caret line="207" column="11" lean-forward="false" selection-start-line="207" selection-start-column="8" selection-end-line="207" selection-end-column="11" />
+          <folding>
+            <element signature="e#979#993#0" expanded="true" />
+            <element signature="e#1263#2581#0" expanded="false" />
+            <element signature="e#2634#2911#0" expanded="false" />
+            <element signature="e#2944#4409#1" expanded="false" />
+            <element signature="e#4569#4615#0" expanded="false" />
+            <element signature="e#5146#5414#0" expanded="false" />
+            <element signature="e#5482#5832#0" expanded="false" />
+            <element signature="e#5974#6376#0" expanded="false" />
+            <element signature="e#6409#6499#0" expanded="false" />
+            <element signature="e#6699#6833#0" expanded="false" />
+            <element signature="e#6898#7052#0" expanded="false" />
+            <element signature="e#7115#7378#0" expanded="false" />
+            <element signature="e#8605#10071#0" expanded="false" />
+            <element signature="e#10951#21825#0" expanded="false" />
+            <element signature="e#10951#12857#1" expanded="false" />
+            <element signature="e#13102#13591#0" expanded="false" />
+            <element signature="e#13674#14644#0" expanded="false" />
+            <element signature="e#14729#14752#0" expanded="false" />
+            <element signature="e#15435#16708#0" expanded="false" />
+            <element signature="e#16977#21825#0" expanded="false" />
+            <element signature="e#16977#18134#1" expanded="false" />
+            <marker date="1531381524095" expanded="false" signature="10102:10903" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/oslo_messaging/_drivers/pool.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-442">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#1212#3803#0" expanded="false" />
+            <element signature="e#3838#4628#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/oslo_messaging/_drivers/base.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="316">
+          <caret line="335" column="61" lean-forward="false" selection-start-line="335" selection-start-column="40" selection-end-line="335" selection-end-column="61" />
+          <folding>
+            <element signature="e#792#1191#0" expanded="false" />
+            <element signature="e#1227#2092#0" expanded="false" />
+            <element signature="e#4312#5935#0" expanded="false" />
+            <element signature="e#6007#8353#0" expanded="false" />
+            <element signature="e#8416#10357#0" expanded="false" />
+            <element signature="e#10406#12034#0" expanded="false" />
+            <element signature="e#12099#12837#1" expanded="false" />
+            <element signature="e#13185#13475#0" expanded="false" />
+            <element signature="e#13612#17480#0" expanded="false" />
+            <element signature="e#17586#20117#0" expanded="false" />
+            <element signature="e#17586#20117#2" expanded="false" />
+            <element signature="e#20208#22466#0" expanded="false" />
+            <element signature="e#22630#24542#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/oslo_messaging/_drivers/impl_rabbit.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="26">
+          <caret line="259" column="23" lean-forward="false" selection-start-line="259" selection-start-column="23" selection-end-line="259" selection-end-column="23" />
+          <folding>
+            <element signature="e#8957#10118#0" expanded="false" />
+            <element signature="e#10152#10634#0" expanded="false" />
+            <element signature="e#10665#15184#0" expanded="false" />
+            <element signature="e#15327#17938#0" expanded="false" />
+            <element signature="e#17971#54343#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/oslo_messaging/_drivers/common.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3091">
+          <caret line="382" column="22" lean-forward="false" selection-start-line="382" selection-start-column="22" selection-end-line="382" selection-end-column="22" />
+          <folding>
+            <element signature="e#2567#3330#0" expanded="false" />
+            <element signature="e#3366#4287#0" expanded="false" />
+            <element signature="e#4973#5537#0" expanded="false" />
+            <element signature="e#5590#6575#0" expanded="false" />
+            <element signature="e#6645#8827#0" expanded="false" />
+            <element signature="e#8866#9364#0" expanded="false" />
+            <element signature="e#9405#9700#0" expanded="false" />
+            <element signature="e#9735#9956#0" expanded="false" />
+            <element signature="e#9989#11578#0" expanded="false" />
+            <element signature="e#11614#12201#0" expanded="false" />
+            <element signature="e#13342#16246#0" expanded="false" />
+            <element signature="e#14652#15647#0" expanded="false" />
+            <element signature="e#16054#16246#0" expanded="false" />
+            <element signature="e#16297#18635#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/oslo_messaging/_drivers/amqpdriver.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-211">
+          <caret line="499" column="25" lean-forward="false" selection-start-line="499" selection-start-column="11" selection-end-line="499" selection-end-column="25" />
+          <folding>
+            <element signature="e#637#651#0" expanded="true" />
+            <element signature="e#1408#2628#0" expanded="false" />
+            <element signature="e#2688#6897#0" expanded="false" />
+            <element signature="e#6944#8524#0" expanded="false" />
+            <element signature="e#8576#11755#0" expanded="false" />
+            <element signature="e#11791#13311#0" expanded="false" />
+            <element signature="e#13345#17087#0" expanded="false" />
+            <element signature="e#21192#21311#0" expanded="false" />
+            <element signature="e#21378#22125#0" expanded="false" />
+            <element signature="e#22265#22756#0" expanded="false" />
+            <element signature="e#22789#23163#0" expanded="false" />
           </folding>
         </state>
       </provider>
