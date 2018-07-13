@@ -2,12 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="880eb282-5cb4-4733-84c2-1a59ee7a1d1d" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/oslo_messaging/_drivers/amqp.py" afterPath="$PROJECT_DIR$/oslo_messaging/_drivers/amqp.py" />
-      <change beforePath="$PROJECT_DIR$/oslo_messaging/_drivers/amqpdriver.py" afterPath="$PROJECT_DIR$/oslo_messaging/_drivers/amqpdriver.py" />
-      <change beforePath="$PROJECT_DIR$/oslo_messaging/_drivers/common.py" afterPath="$PROJECT_DIR$/oslo_messaging/_drivers/common.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/oslo_messaging/_drivers/amqpdriver.py" afterPath="$PROJECT_DIR$/oslo_messaging/_drivers/amqpdriver.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/oslo_messaging/_drivers/impl_rabbit.py" afterPath="$PROJECT_DIR$/oslo_messaging/_drivers/impl_rabbit.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/oslo_messaging/_drivers/pool.py" afterPath="$PROJECT_DIR$/oslo_messaging/_drivers/pool.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -22,48 +19,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="config.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/nova/config.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="54" column="13" lean-forward="false" selection-start-line="54" selection-start-column="13" selection-end-line="54" selection-end-column="13" />
-              <folding>
-                <element signature="e#763#787#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="rpc.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/nova/rpc.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="4672">
-              <caret line="232" column="28" lean-forward="false" selection-start-line="232" selection-start-column="28" selection-end-line="232" selection-end-column="28" />
-              <folding>
-                <element signature="e#854#870#0" expanded="true" />
-                <element signature="e#2940#3293#0" expanded="false" />
-                <element signature="e#3336#3386#0" expanded="false" />
-                <element signature="e#3422#3447#0" expanded="false" />
-                <element signature="e#3480#3499#0" expanded="false" />
-                <element signature="e#3532#3568#0" expanded="false" />
-                <element signature="e#3630#3756#0" expanded="false" />
-                <element signature="e#3818#4382#0" expanded="false" />
-                <element signature="e#4455#5326#0" expanded="false" />
-                <element signature="e#5486#5858#0" expanded="false" />
-                <element signature="e#6534#6756#0" expanded="false" />
-                <element signature="e#6805#6887#0" expanded="false" />
-                <element signature="e#6927#7332#0" expanded="false" />
-                <element signature="e#7604#14528#0" expanded="false" />
-                <element signature="e#14584#15616#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="transport.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/oslo_messaging/rpc/transport.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1440">
+            <state relative-caret-position="0">
               <caret line="45" column="31" lean-forward="false" selection-start-line="45" selection-start-column="31" selection-end-line="45" selection-end-column="31" />
               <folding />
             </state>
@@ -73,8 +32,8 @@
       <file leaf-file-name="transport.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/oslo_messaging/transport.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3360">
-              <caret line="207" column="11" lean-forward="false" selection-start-line="207" selection-start-column="8" selection-end-line="207" selection-end-column="11" />
+            <state relative-caret-position="746">
+              <caret line="287" column="18" lean-forward="false" selection-start-line="287" selection-start-column="6" selection-end-line="287" selection-end-column="18" />
               <folding>
                 <element signature="e#979#993#0" expanded="true" />
                 <element signature="e#1263#2581#0" expanded="false" />
@@ -102,16 +61,77 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="target.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/oslo_messaging/target.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-2257">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="impl_rabbit.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/oslo_messaging/_drivers/impl_rabbit.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="302">
-              <caret line="1087" column="8" lean-forward="false" selection-start-line="1087" selection-start-column="8" selection-end-line="1087" selection-end-column="8" />
+            <state relative-caret-position="490">
+              <caret line="1319" column="26" lean-forward="false" selection-start-line="1319" selection-start-column="13" selection-end-line="1319" selection-end-column="26" />
               <folding>
+                <element signature="e#616#633#0" expanded="true" />
+                <element signature="e#1601#8853#0" expanded="false" />
                 <element signature="e#8957#10118#0" expanded="false" />
-                <element signature="e#10152#10634#0" expanded="false" />
-                <element signature="e#10665#15184#0" expanded="false" />
-                <element signature="e#15327#17938#0" expanded="false" />
+                <element signature="e#10665#15216#0" expanded="false" />
+                <element signature="e#10917#11775#0" expanded="false" />
+                <element signature="e#11829#12911#0" expanded="false" />
+                <element signature="e#12955#14585#0" expanded="false" />
+                <element signature="e#26412#26661#0" expanded="false" />
+                <element signature="e#26757#26839#0" expanded="false" />
+                <element signature="e#26867#27022#0" expanded="false" />
+                <element signature="e#27072#27254#0" expanded="false" />
+                <element signature="e#27325#27499#0" expanded="false" />
+                <element signature="e#27554#27777#0" expanded="false" />
+                <element signature="e#27820#28679#0" expanded="false" />
+                <element signature="e#28977#29208#0" expanded="false" />
+                <element signature="e#29401#34238#0" expanded="false" />
+                <element signature="e#34306#34999#0" expanded="false" />
+                <element signature="e#35042#35264#0" expanded="false" />
+                <element signature="e#35295#35789#0" expanded="false" />
+                <element signature="e#35820#36277#0" expanded="false" />
+                <element signature="e#36335#36753#0" expanded="false" />
+                <element signature="e#36821#39146#0" expanded="false" />
+                <element signature="e#39237#39337#0" expanded="false" />
+                <element signature="e#39617#39977#0" expanded="false" />
+                <element signature="e#40018#40185#0" expanded="false" />
+                <element signature="e#40232#41827#0" expanded="false" />
+                <element signature="e#41879#42746#0" expanded="false" />
+                <element signature="e#42793#45280#0" expanded="false" />
+                <element signature="e#45419#46140#0" expanded="false" />
+                <element signature="e#46273#46870#0" expanded="false" />
+                <element signature="e#46936#47687#0" expanded="false" />
+                <element signature="e#47825#48352#0" expanded="false" />
+                <element signature="e#48398#48775#0" expanded="false" />
+                <element signature="e#48856#49767#0" expanded="false" />
+                <element signature="e#49917#51433#0" expanded="false" />
+                <element signature="e#51641#52774#0" expanded="false" />
+                <element signature="e#52824#53280#0" expanded="false" />
+                <element signature="e#53828#54172#0" expanded="false" />
+                <marker date="1531464862018" expanded="false" signature="15358:17974" ph="..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="pool.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/oslo_messaging/_drivers/pool.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="519">
+              <caret line="125" column="13" lean-forward="false" selection-start-line="125" selection-start-column="13" selection-end-line="125" selection-end-column="13" />
+              <folding>
+                <element signature="e#2502#2746#0" expanded="false" />
+                <element signature="e#2807#3648#0" expanded="false" />
+                <element signature="e#3683#3888#0" expanded="false" />
+                <element signature="e#4437#4575#0" expanded="false" />
+                <marker date="1531451204018" expanded="false" signature="1844:2453" ph="..." />
               </folding>
             </state>
           </provider>
@@ -120,19 +140,29 @@
       <file leaf-file-name="amqpdriver.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/oslo_messaging/_drivers/amqpdriver.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1304">
-              <caret line="437" column="34" lean-forward="true" selection-start-line="437" selection-start-column="34" selection-end-line="437" selection-end-column="34" />
+            <state relative-caret-position="1029">
+              <caret line="226" column="32" lean-forward="false" selection-start-line="226" selection-start-column="32" selection-end-line="226" selection-end-column="32" />
               <folding>
                 <element signature="e#637#651#0" expanded="true" />
-                <element signature="e#1408#2628#0" expanded="false" />
                 <element signature="e#2688#6897#0" expanded="false" />
-                <element signature="e#6944#8524#0" expanded="false" />
-                <element signature="e#8576#11755#0" expanded="false" />
-                <element signature="e#13918#14079#0" expanded="false" />
-                <element signature="e#21379#21498#0" expanded="false" />
-                <element signature="e#21565#22312#0" expanded="false" />
-                <element signature="e#22452#22943#0" expanded="false" />
-                <element signature="e#22976#23350#0" expanded="false" />
+                <element signature="e#11822#13344#0" expanded="false" />
+                <element signature="e#11874#11924#0" expanded="false" />
+                <element signature="e#11970#12226#0" expanded="false" />
+                <element signature="e#12277#12606#0" expanded="false" />
+                <element signature="e#12643#13278#0" expanded="false" />
+                <element signature="e#13524#17409#0" expanded="false" />
+                <element signature="e#14305#14976#0" expanded="false" />
+                <element signature="e#15019#15495#0" expanded="false" />
+                <element signature="e#15698#15811#0" expanded="false" />
+                <element signature="e#15857#16219#0" expanded="false" />
+                <element signature="e#17622#17993#0" expanded="false" />
+                <element signature="e#18391#18800#0" expanded="false" />
+                <element signature="e#18989#21499#0" expanded="false" />
+                <element signature="e#20314#20510#0" expanded="false" />
+                <element signature="e#20553#21151#0" expanded="false" />
+                <element signature="e#22876#23367#0" expanded="false" />
+                <element signature="e#23400#23774#0" expanded="false" />
+                <marker date="1531464861938" expanded="false" signature="14094:14264" ph="..." />
               </folding>
             </state>
           </provider>
@@ -141,8 +171,8 @@
       <file leaf-file-name="amqp.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/oslo_messaging/_drivers/amqp.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="460">
-              <caret line="128" column="4" lean-forward="false" selection-start-line="128" selection-start-column="4" selection-end-line="128" selection-end-column="4" />
+            <state relative-caret-position="292">
+              <caret line="111" column="8" lean-forward="false" selection-start-line="111" selection-start-column="8" selection-end-line="111" selection-end-column="8" />
               <folding>
                 <element signature="e#2684#3170#0" expanded="false" />
               </folding>
@@ -153,7 +183,7 @@
       <file leaf-file-name="common.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/oslo_messaging/_drivers/common.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="224">
+            <state relative-caret-position="985">
               <caret line="352" column="8" lean-forward="false" selection-start-line="352" selection-start-column="8" selection-end-line="352" selection-end-column="8" />
               <folding>
                 <element signature="e#2567#3330#0" expanded="false" />
@@ -167,7 +197,6 @@
                 <element signature="e#9989#11578#0" expanded="false" />
                 <element signature="e#14673#15668#0" expanded="false" />
                 <element signature="e#16075#16267#0" expanded="false" />
-                <element signature="e#16318#18656#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -176,14 +205,12 @@
       <file leaf-file-name="base.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/oslo_messaging/_drivers/base.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3104">
-              <caret line="335" column="61" lean-forward="false" selection-start-line="335" selection-start-column="40" selection-end-line="335" selection-end-column="61" />
+            <state relative-caret-position="-401">
+              <caret line="161" column="70" lean-forward="false" selection-start-line="159" selection-start-column="7" selection-end-line="161" selection-end-column="70" />
               <folding>
                 <element signature="e#792#1191#0" expanded="false" />
-                <element signature="e#1227#2092#0" expanded="false" />
+                <element signature="e#2286#4230#0" expanded="false" />
                 <element signature="e#4312#5935#0" expanded="false" />
-                <element signature="e#6007#8353#0" expanded="false" />
-                <element signature="e#8416#10357#0" expanded="false" />
                 <element signature="e#10406#12034#0" expanded="false" />
                 <element signature="e#12099#12837#1" expanded="false" />
                 <element signature="e#13185#13475#0" expanded="false" />
@@ -265,6 +292,8 @@
         <option value="$PROJECT_DIR$/oslo_messaging/transport.py" />
         <option value="$PROJECT_DIR$/oslo_messaging/_drivers/common.py" />
         <option value="$PROJECT_DIR$/oslo_messaging/_drivers/amqp.py" />
+        <option value="$PROJECT_DIR$/oslo_messaging/_drivers/pool.py" />
+        <option value="$PROJECT_DIR$/oslo_messaging/_drivers/impl_rabbit.py" />
         <option value="$PROJECT_DIR$/oslo_messaging/_drivers/amqpdriver.py" />
       </list>
     </option>
@@ -296,7 +325,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -319,6 +347,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
       <pane id="Scratches" />
     </panes>
   </component>
@@ -341,44 +370,6 @@
     </option>
   </component>
   <component name="RunManager" selected="Python.iot_bulb">
-    <configuration name="iot_bulb" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/oslo_versionedobjects/examples" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="oslo.py" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/oslo_versionedobjects/examples/iot_bulb.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-    </configuration>
-    <configuration name="nova-api-wsgi" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="oslo.py" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/nova-api-wsgi" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-    </configuration>
     <configuration default="true" type="tests" factoryName="Nosetests">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -441,6 +432,42 @@
       <option name="_new_target" value="&quot;&quot;" />
       <option name="_new_targetType" value="&quot;PATH&quot;" />
     </configuration>
+    <configuration name="iot_bulb" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/oslo_versionedobjects/examples" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="oslo.py" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/oslo_versionedobjects/examples/iot_bulb.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+    </configuration>
+    <configuration name="nova-api-wsgi" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="oslo.py" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/nova-api-wsgi" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+    </configuration>
     <list size="2">
       <item index="0" class="java.lang.String" itemvalue="Python.nova-api-wsgi" />
       <item index="1" class="java.lang.String" itemvalue="Python.iot_bulb" />
@@ -469,29 +496,29 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1096" extended-state="6" />
+    <frame x="-8" y="-8" width="1696" height="1066" extended-state="6" />
     <layout>
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.15654762" sideWeight="0.5" order="1" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32948583" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.15677084" sideWeight="0.5" order="1" side_tool="false" content_ui="combo" />
-      <window_info id="Docker" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="SciView" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39979014" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="combo" />
+      <window_info id="Docker" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32948583" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="SciView" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -509,47 +536,11 @@
           <option name="timeStamp" value="4" />
         </line-breakpoint>
       </breakpoints>
-      <option name="time" value="22" />
+      <option name="time" value="24" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/nova/db/sqlalchemy/__init__.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/nova/tests/fixtures.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="308">
-          <caret line="609" column="13" lean-forward="false" selection-start-line="609" selection-start-column="13" selection-end-line="609" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/oslo_db/exception.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="308">
-          <caret line="164" column="13" lean-forward="false" selection-start-line="164" selection-start-column="13" selection-end-line="164" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/oslo_db/options.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2769">
-          <caret line="15" column="0" lean-forward="false" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/nova/conf/__init__.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="308">
-          <caret line="72" column="0" lean-forward="false" selection-start-line="72" selection-start-column="0" selection-end-line="72" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/nova/conf/database.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="242">
@@ -705,10 +696,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2080">
           <caret line="76" column="17" lean-forward="false" selection-start-line="76" selection-start-column="17" selection-end-line="76" selection-end-column="17" />
-          <folding>
-            <element signature="e#626#635#0" expanded="true" />
-            <element signature="e#2153#2449#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -746,7 +733,7 @@
         <state relative-caret-position="0">
           <caret line="54" column="13" lean-forward="false" selection-start-line="54" selection-start-column="13" selection-end-line="54" selection-end-column="13" />
           <folding>
-            <element signature="e#763#787#0" expanded="true" />
+            <element signature="e#763#787#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -761,10 +748,10 @@
     <entry file="file://D:/Python27/Lib/urlparse.py" />
     <entry file="file://$PROJECT_DIR$/nova/rpc.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4672">
+        <state relative-caret-position="0">
           <caret line="232" column="28" lean-forward="false" selection-start-line="232" selection-start-column="28" selection-end-line="232" selection-end-column="28" />
           <folding>
-            <element signature="e#854#870#0" expanded="true" />
+            <element signature="e#854#870#0" expanded="false" />
             <element signature="e#2940#3293#0" expanded="false" />
             <element signature="e#3336#3386#0" expanded="false" />
             <element signature="e#3422#3447#0" expanded="false" />
@@ -785,7 +772,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/oslo_messaging/rpc/transport.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1440">
+        <state relative-caret-position="0">
           <caret line="45" column="31" lean-forward="false" selection-start-line="45" selection-start-column="31" selection-end-line="45" selection-end-column="31" />
           <folding />
         </state>
@@ -799,10 +786,89 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://D:/Python/Python36/Lib/threading.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="310">
+          <caret line="505" column="8" lean-forward="false" selection-start-line="505" selection-start-column="8" selection-end-line="505" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$APPLICATION_HOME_DIR$/helpers/typeshed/third_party/3/six/moves/__init__.pyi">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://D:/Python/Python36/Lib/uuid.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="310">
+          <caret line="280" column="8" lean-forward="false" selection-start-line="280" selection-start-column="8" selection-end-line="280" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/.PyCharm2017.2/system/python_stubs/1494736245/itertools.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/oslo_messaging/_utils.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="308">
+          <caret line="49" column="6" lean-forward="false" selection-start-line="49" selection-start-column="6" selection-end-line="49" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/oslo_utils/timeutils.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1142">
+          <caret line="394" column="24" lean-forward="false" selection-start-line="394" selection-start-column="24" selection-end-line="394" selection-end-column="24" />
+          <folding>
+            <element signature="e#11978#17743#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/oslo_config/cfg.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1488">
+          <caret line="1864" column="8" lean-forward="false" selection-start-line="1864" selection-start-column="8" selection-end-line="1864" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/oslo_messaging/_drivers/pool.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="519">
+          <caret line="125" column="13" lean-forward="false" selection-start-line="125" selection-start-column="13" selection-end-line="125" selection-end-column="13" />
+          <folding>
+            <element signature="e#2502#2746#0" expanded="false" />
+            <element signature="e#2807#3648#0" expanded="false" />
+            <element signature="e#3683#3888#0" expanded="false" />
+            <element signature="e#4437#4575#0" expanded="false" />
+            <marker date="1531451204018" expanded="false" signature="1844:2453" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/oslo_messaging/_drivers/amqp.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="292">
+          <caret line="111" column="8" lean-forward="false" selection-start-line="111" selection-start-column="8" selection-end-line="111" selection-end-column="8" />
+          <folding>
+            <element signature="e#2684#3170#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/oslo_messaging/transport.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3360">
-          <caret line="207" column="11" lean-forward="false" selection-start-line="207" selection-start-column="8" selection-end-line="207" selection-end-column="11" />
+        <state relative-caret-position="746">
+          <caret line="287" column="18" lean-forward="false" selection-start-line="287" selection-start-column="6" selection-end-line="287" selection-end-column="18" />
           <folding>
             <element signature="e#979#993#0" expanded="true" />
             <element signature="e#1263#2581#0" expanded="false" />
@@ -829,75 +895,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/oslo_messaging/_drivers/pool.py">
+    <entry file="file://$PROJECT_DIR$/oslo_messaging/target.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-442">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/oslo_messaging/_drivers/base.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3104">
-          <caret line="335" column="61" lean-forward="false" selection-start-line="335" selection-start-column="40" selection-end-line="335" selection-end-column="61" />
-          <folding>
-            <element signature="e#792#1191#0" expanded="false" />
-            <element signature="e#1227#2092#0" expanded="false" />
-            <element signature="e#4312#5935#0" expanded="false" />
-            <element signature="e#6007#8353#0" expanded="false" />
-            <element signature="e#8416#10357#0" expanded="false" />
-            <element signature="e#10406#12034#0" expanded="false" />
-            <element signature="e#12099#12837#1" expanded="false" />
-            <element signature="e#13185#13475#0" expanded="false" />
-            <element signature="e#13612#17480#0" expanded="false" />
-            <element signature="e#17586#20117#0" expanded="false" />
-            <element signature="e#17586#20117#2" expanded="false" />
-            <element signature="e#20208#22466#0" expanded="false" />
-            <element signature="e#22630#24542#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://D:/Python/Python36/Lib/threading.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="310">
-          <caret line="505" column="8" lean-forward="false" selection-start-line="505" selection-start-column="8" selection-end-line="505" selection-end-column="8" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$APPLICATION_HOME_DIR$/helpers/typeshed/third_party/3/six/moves/__init__.pyi">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
+        <state relative-caret-position="-2257">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://D:/Python/Python36/Lib/uuid.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="310">
-          <caret line="280" column="8" lean-forward="false" selection-start-line="280" selection-start-column="8" selection-end-line="280" selection-end-column="8" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/oslo_messaging/_drivers/impl_rabbit.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="302">
-          <caret line="1087" column="8" lean-forward="false" selection-start-line="1087" selection-start-column="8" selection-end-line="1087" selection-end-column="8" />
-          <folding>
-            <element signature="e#8957#10118#0" expanded="false" />
-            <element signature="e#10152#10634#0" expanded="false" />
-            <element signature="e#10665#15184#0" expanded="false" />
-            <element signature="e#15327#17938#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/oslo_messaging/_drivers/common.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="224">
+        <state relative-caret-position="985">
           <caret line="352" column="8" lean-forward="false" selection-start-line="352" selection-start-column="8" selection-end-line="352" selection-end-column="8" />
           <folding>
             <element signature="e#2567#3330#0" expanded="false" />
@@ -911,36 +919,103 @@
             <element signature="e#9989#11578#0" expanded="false" />
             <element signature="e#14673#15668#0" expanded="false" />
             <element signature="e#16075#16267#0" expanded="false" />
-            <element signature="e#16318#18656#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/oslo_messaging/_drivers/amqp.py">
+    <entry file="file://$PROJECT_DIR$/oslo_messaging/_drivers/impl_rabbit.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="460">
-          <caret line="128" column="4" lean-forward="false" selection-start-line="128" selection-start-column="4" selection-end-line="128" selection-end-column="4" />
+        <state relative-caret-position="490">
+          <caret line="1319" column="26" lean-forward="false" selection-start-line="1319" selection-start-column="13" selection-end-line="1319" selection-end-column="26" />
           <folding>
-            <element signature="e#2684#3170#0" expanded="false" />
+            <element signature="e#616#633#0" expanded="true" />
+            <element signature="e#1601#8853#0" expanded="false" />
+            <element signature="e#8957#10118#0" expanded="false" />
+            <element signature="e#10665#15216#0" expanded="false" />
+            <element signature="e#10917#11775#0" expanded="false" />
+            <element signature="e#11829#12911#0" expanded="false" />
+            <element signature="e#12955#14585#0" expanded="false" />
+            <element signature="e#26412#26661#0" expanded="false" />
+            <element signature="e#26757#26839#0" expanded="false" />
+            <element signature="e#26867#27022#0" expanded="false" />
+            <element signature="e#27072#27254#0" expanded="false" />
+            <element signature="e#27325#27499#0" expanded="false" />
+            <element signature="e#27554#27777#0" expanded="false" />
+            <element signature="e#27820#28679#0" expanded="false" />
+            <element signature="e#28977#29208#0" expanded="false" />
+            <element signature="e#29401#34238#0" expanded="false" />
+            <element signature="e#34306#34999#0" expanded="false" />
+            <element signature="e#35042#35264#0" expanded="false" />
+            <element signature="e#35295#35789#0" expanded="false" />
+            <element signature="e#35820#36277#0" expanded="false" />
+            <element signature="e#36335#36753#0" expanded="false" />
+            <element signature="e#36821#39146#0" expanded="false" />
+            <element signature="e#39237#39337#0" expanded="false" />
+            <element signature="e#39617#39977#0" expanded="false" />
+            <element signature="e#40018#40185#0" expanded="false" />
+            <element signature="e#40232#41827#0" expanded="false" />
+            <element signature="e#41879#42746#0" expanded="false" />
+            <element signature="e#42793#45280#0" expanded="false" />
+            <element signature="e#45419#46140#0" expanded="false" />
+            <element signature="e#46273#46870#0" expanded="false" />
+            <element signature="e#46936#47687#0" expanded="false" />
+            <element signature="e#47825#48352#0" expanded="false" />
+            <element signature="e#48398#48775#0" expanded="false" />
+            <element signature="e#48856#49767#0" expanded="false" />
+            <element signature="e#49917#51433#0" expanded="false" />
+            <element signature="e#51641#52774#0" expanded="false" />
+            <element signature="e#52824#53280#0" expanded="false" />
+            <element signature="e#53828#54172#0" expanded="false" />
+            <marker date="1531464862018" expanded="false" signature="15358:17974" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/oslo_messaging/_drivers/base.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-401">
+          <caret line="161" column="70" lean-forward="false" selection-start-line="159" selection-start-column="7" selection-end-line="161" selection-end-column="70" />
+          <folding>
+            <element signature="e#792#1191#0" expanded="false" />
+            <element signature="e#2286#4230#0" expanded="false" />
+            <element signature="e#4312#5935#0" expanded="false" />
+            <element signature="e#10406#12034#0" expanded="false" />
+            <element signature="e#12099#12837#1" expanded="false" />
+            <element signature="e#13185#13475#0" expanded="false" />
+            <element signature="e#13612#17480#0" expanded="false" />
+            <element signature="e#17586#20117#0" expanded="false" />
+            <element signature="e#17586#20117#2" expanded="false" />
+            <element signature="e#20208#22466#0" expanded="false" />
+            <element signature="e#22630#24542#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/oslo_messaging/_drivers/amqpdriver.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1304">
-          <caret line="437" column="34" lean-forward="true" selection-start-line="437" selection-start-column="34" selection-end-line="437" selection-end-column="34" />
+        <state relative-caret-position="1029">
+          <caret line="226" column="32" lean-forward="false" selection-start-line="226" selection-start-column="32" selection-end-line="226" selection-end-column="32" />
           <folding>
             <element signature="e#637#651#0" expanded="true" />
-            <element signature="e#1408#2628#0" expanded="false" />
             <element signature="e#2688#6897#0" expanded="false" />
-            <element signature="e#6944#8524#0" expanded="false" />
-            <element signature="e#8576#11755#0" expanded="false" />
-            <element signature="e#13918#14079#0" expanded="false" />
-            <element signature="e#21379#21498#0" expanded="false" />
-            <element signature="e#21565#22312#0" expanded="false" />
-            <element signature="e#22452#22943#0" expanded="false" />
-            <element signature="e#22976#23350#0" expanded="false" />
+            <element signature="e#11822#13344#0" expanded="false" />
+            <element signature="e#11874#11924#0" expanded="false" />
+            <element signature="e#11970#12226#0" expanded="false" />
+            <element signature="e#12277#12606#0" expanded="false" />
+            <element signature="e#12643#13278#0" expanded="false" />
+            <element signature="e#13524#17409#0" expanded="false" />
+            <element signature="e#14305#14976#0" expanded="false" />
+            <element signature="e#15019#15495#0" expanded="false" />
+            <element signature="e#15698#15811#0" expanded="false" />
+            <element signature="e#15857#16219#0" expanded="false" />
+            <element signature="e#17622#17993#0" expanded="false" />
+            <element signature="e#18391#18800#0" expanded="false" />
+            <element signature="e#18989#21499#0" expanded="false" />
+            <element signature="e#20314#20510#0" expanded="false" />
+            <element signature="e#20553#21151#0" expanded="false" />
+            <element signature="e#22876#23367#0" expanded="false" />
+            <element signature="e#23400#23774#0" expanded="false" />
+            <marker date="1531464861938" expanded="false" signature="14094:14264" ph="..." />
           </folding>
         </state>
       </provider>

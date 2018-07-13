@@ -280,12 +280,12 @@ class Consumer(object):
 
         self.queue = None
         self._declared_on = None
-        self.exchange = kombu.entity.Exchange(
+        self.exchange = kombu.entity.Exchange(      #生成exchange
             name=exchange_name,
             type=type,
             durable=self.durable,
             auto_delete=self.exchange_auto_delete)
-
+    #创建及绑定queue
     def declare(self, conn):
         """Re-declare the queue after a rabbit (re)connect."""
 
@@ -376,7 +376,7 @@ class DummyConnectionLock(_utils.DummyLock):
     def heartbeat_acquire(self):
         pass
 
-
+#???
 class ConnectionLock(DummyConnectionLock):
     """Lock object to protect access to the kombu connection
 
@@ -447,7 +447,7 @@ class ConnectionLock(DummyConnectionLock):
         finally:
             self.release()
 
-
+#采用框架kombu
 class Connection(object):
     """Connection object."""
 
@@ -499,7 +499,7 @@ class Connection(object):
             virtual_host = url.virtual_host
         else:
             virtual_host = self.virtual_host
-
+        #生成url,优先根据传入的TransportURL实例，后CONF
         self._url = ''
         if self.fake_rabbit:
             LOG.warning(_LW("Deprecated: fake_rabbit option is deprecated, "
@@ -545,11 +545,11 @@ class Connection(object):
 
         self._initial_pid = os.getpid()
 
-        self._consumers = {}
+        self._consumers = {}    #多个消费者
         self._producer = None
         self._new_tags = set()
         self._active_tags = {}
-        self._tags = itertools.count(1)
+        self._tags = itertools.count(1)     #用于标识**，1，2，3.......
 
         # Set of exchanges and queues declared on the channel to avoid
         # unnecessary redeclaration. This set is resetted each time
@@ -573,7 +573,7 @@ class Connection(object):
         self.name = "%s:%d:%s" % (os.path.basename(sys.argv[0]),
                                   os.getpid(),
                                   self.connection_id)
-        self.connection = kombu.connection.Connection(
+        self.connection = kombu.connection.Connection(      #用kombu创建conn
             self._url, ssl=self._fetch_ssl_params(),
             login_method=self.login_method,
             heartbeat=self.heartbeat_timeout_threshold,
@@ -611,7 +611,7 @@ class Connection(object):
 
         # NOTE(sileht): just ensure the connection is setuped at startup
         with self._connection_lock:
-            self.ensure_connection()
+            self.ensure_connection()        #部分内容：生成channel
 
         # NOTE(sileht): if purpose is PURPOSE_LISTEN
         # the consume code does the heartbeat stuff
@@ -712,7 +712,7 @@ class Connection(object):
         self._set_current_channel(None)
         self.ensure(method=self.connection.connect)
         self.set_transport_socket_timeout()
-
+    #确保获取连接，执行method，并返回结果ret  ???
     def ensure(self, method, retry=None,
                recoverable_error_callback=None, error_callback=None,
                timeout_is_error=True):
@@ -737,7 +737,7 @@ class Connection(object):
             retry = self.max_retries
         if retry is None or retry < 0:
             retry = None
-
+        #显示打印错误信息，带解析.......???
         def on_error(exc, interval):
             LOG.debug("[%s] Received recoverable error from kombu:"
                       % self.connection_id,
@@ -778,7 +778,7 @@ class Connection(object):
                 LOG.trace('Delaying reconnect for %1.1f seconds ...',
                           self.kombu_reconnect_delay)
                 time.sleep(self.kombu_reconnect_delay)
-
+        #设置新的channel
         def on_reconnection(new_channel):
             """Callback invoked when the kombu reconnects and creates
             a new channel, we use it the reconfigure our consumers.
@@ -823,7 +823,7 @@ class Connection(object):
                     'tries: %(err_str)s') % info
             LOG.error(msg)
             raise exceptions.MessageDeliveryFailure(msg)
-
+    #改变channel
     def _set_current_channel(self, new_channel):
         """Change the channel to use.
 
@@ -838,7 +838,7 @@ class Connection(object):
             self.connection.maybe_close_channel(self.channel)
 
         self.channel = new_channel
-
+        #消费者特殊变化
         if new_channel is not None:
             if self.purpose == rpc_common.PURPOSE_LISTEN:
                 self._set_qos(new_channel)
@@ -1033,7 +1033,7 @@ class Connection(object):
 
         def _recoverable_error_callback(exc):
             if not isinstance(exc, rpc_common.Timeout):
-                self._new_tags = set(self._consumers.values())
+                self._new_tags = set(self._consumers.values())  #for retry
             timer.check_return(_raise_timeout)
 
         def _error_callback(exc):
@@ -1095,7 +1095,7 @@ class Connection(object):
                             queue_name=topic,
                             routing_key=topic,
                             type='direct',
-                            durable=False,
+                            durable=False,  #会自动删除
                             exchange_auto_delete=True,
                             queue_auto_delete=False,
                             callback=callback,
@@ -1291,7 +1291,7 @@ class Connection(object):
         self._ensure_publishing(self._publish_and_creates_default_queue,
                                 exchange, msg, routing_key=topic, retry=retry)
 
-
+#核心功能具体实现由上个类Connection；AMQPDriverBase负责包装接口；RabbitDriver为AMQPDriverBase提供CONF与pool(Connection)
 class RabbitDriver(amqpdriver.AMQPDriverBase):
     """RabbitMQ Driver
 

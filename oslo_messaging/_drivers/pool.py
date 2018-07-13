@@ -54,9 +54,9 @@ class Pool(object):
         self._item_ttl = ttl
         self._current_size = 0
         self._cond = threading.Condition()
-        self._items = collections.deque()
+        self._items = collections.deque()   #双端队列
         self._on_expire = on_expire
-
+    #检查过期的清除，队列的left为最旧的，只需要left开始清除到有不过期的为止
     def expire(self):
         """Remove expired items from left (the oldest item) to
         right (the newest item).
@@ -73,7 +73,7 @@ class Pool(object):
                         return
                 except IndexError:
                     break
-
+    #放回，并通知get
     def put(self, item):
         """Return an item to the pool."""
         with self._cond:
@@ -81,7 +81,7 @@ class Pool(object):
             ttl_watch.start()
             self._items.append((ttl_watch, item))
             self._cond.notify()
-
+    # 如果poll没有满，就创建一个;如果pool满了，就等待put
     def get(self):
         """Return an item from the pool, when one is available.
 
@@ -95,11 +95,11 @@ class Pool(object):
                     return item
                 except IndexError:
                     pass
-
+                #如果poll没有满，就创建一个，
                 if self._current_size < self._max_size:
                     self._current_size += 1
                     break
-
+                #如果pool满了，就等待put
                 wait_condition(self._cond)
 
         # We've grabbed a slot and dropped the lock, now do the creation
@@ -123,7 +123,7 @@ class Pool(object):
     def create(self):
         """Construct a new item."""
 
-
+#MQ CONN POOL
 class ConnectionPool(Pool):
     """Class that implements a Pool of Connections."""
 
@@ -133,7 +133,7 @@ class ConnectionPool(Pool):
         self.url = url
         super(ConnectionPool, self).__init__(max_size, min_size, ttl,
                                              self._on_expire)
-
+    #过期处理函数，关闭conn
     def _on_expire(self, connection):
         connection.close()
         LOG.debug("Idle connection has expired and been closed."
@@ -142,7 +142,7 @@ class ConnectionPool(Pool):
     def create(self, purpose=common.PURPOSE_SEND):
         LOG.debug('Pool creating new connection')
         return self.connection_cls(self.conf, self.url, purpose)
-
+    #清空conn pool
     def empty(self):
         for item in self.iter_free():
             item.close()

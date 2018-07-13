@@ -352,15 +352,15 @@ class ReplyWaiters(object):
     def remove(self, msg_id):
         del self._queues[msg_id]
 
-
+#init时，生成consumer监听reply_q，回调处理函数self；self.listen()在ReplyWaiters中创建msg_id对应的队列；self__call__()将reply msg放入ReplyWaiters msg_id队列，self.wait()取出对应的reply
 class ReplyWaiter(object):
     def __init__(self, reply_q, conn, allowed_remote_exmods):
-        self.conn = conn
+        self.conn = conn    #listen conn
         self.allowed_remote_exmods = allowed_remote_exmods
         self.msg_id_cache = rpc_amqp._MsgIdCache()  #记录msg的_unique_id
         self.waiters = ReplyWaiters()   #多个msg
 
-        self.conn.declare_direct_consumer(reply_q, self)    #在队列reply_q监听消费 ？
+        self.conn.declare_direct_consumer(reply_q, self)    #在队列reply_q监听消费 init ？，回调self   1、类似声明
 
         self._thread_exit_event = threading.Event()
         self._thread = threading.Thread(target=self.poll)
@@ -373,13 +373,13 @@ class ReplyWaiter(object):
             self.conn.stop_consuming()
             self._thread.join()
             self._thread = None
-
+    #监听消费队列
     def poll(self):
         current_timeout = ACK_REQUEUE_EVERY_SECONDS_MIN
         while not self._thread_exit_event.is_set():
             try:
                 # ack every ACK_REQUEUE_EVERY_SECONDS_MAX seconds
-                self.conn.consume(timeout=current_timeout)
+                self.conn.consume(timeout=current_timeout)      #consumer开始监听       2、类似启动
             except rpc_common.Timeout:
                 current_timeout = max(current_timeout * 2,
                                       ACK_REQUEUE_EVERY_SECONDS_MAX)
@@ -435,7 +435,7 @@ class ReplyWaiter(object):
         final_reply = None
         ending = False
         while not ending:
-            timeout = timer.check_return(self._raise_timeout_exception, msg_id)
+            timeout = timer.check_return(self._raise_timeout_exception, msg_id) #timeout则发出异常
             try:
                 message = self.waiters.get(msg_id, timeout=timeout)
             except moves.queue.Empty:
@@ -496,11 +496,11 @@ class AMQPDriverBase(base.BaseDriver):
               envelope=True, notify=False, retry=None):
 
         msg = message
-
+        #如果等待reply,则生成msg._msg_id/msg._reply_q;并生成self._waiter
         if wait_for_reply:
             msg_id = uuid.uuid4().hex
             msg.update({'_msg_id': msg_id})
-            msg.update({'_reply_q': self._get_reply_q()})
+            msg.update({'_reply_q': self._get_reply_q()})   #wait已经生成关联消费者到reply_q队列
         #msg._unique_id = uuid
         rpc_amqp._add_unique_id(msg)
         unique_id = msg[rpc_amqp.UNIQUE_ID]
@@ -511,7 +511,7 @@ class AMQPDriverBase(base.BaseDriver):
             msg = rpc_common.serialize_msg(msg)
 
         if wait_for_reply:
-            self._waiter.listen(msg_id)
+            self._waiter.listen(msg_id)     #wait在ReplyWaiters中创建msg_id队列，用于接受reply
             log_msg = "CALL msg_id: %s " % msg_id
         else:
             log_msg = "CAST unique_id: %s " % unique_id
@@ -545,7 +545,7 @@ class AMQPDriverBase(base.BaseDriver):
                                     msg=msg, timeout=timeout, retry=retry)
 
             if wait_for_reply:
-                result = self._waiter.wait(msg_id, timeout)
+                result = self._waiter.wait(msg_id, timeout) #wait最多等待timeout，在ReplyWaiters的msg_id队列获取reply数据
                 if isinstance(result, Exception):
                     raise result
                 return result
