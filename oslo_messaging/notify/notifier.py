@@ -255,20 +255,20 @@ class Notifier(object):
         if retry is not None:
             self.retry = retry
         else:
-            self.retry = conf.oslo_messaging_notifications.retry
+            self.retry = conf.oslo_messaging_notifications.retry        #default=-1
 
         self._driver_names = ([driver] if driver is not None else
-                              conf.oslo_messaging_notifications.driver)
+                              conf.oslo_messaging_notifications.driver)     #messagingv2
 
         if topics is not None:
             self._topics = topics
         else:
-            self._topics = conf.oslo_messaging_notifications.topics
+            self._topics = conf.oslo_messaging_notifications.topics     # ['notifications', ],
         self._serializer = serializer or msg_serializer.NoOpSerializer()
 
         self._driver_mgr = named.NamedExtensionManager(
-            'oslo.messaging.notify.drivers',
-            names=self._driver_names,
+            'oslo.messaging.notify.drivers',    #oslo_messaging.notify.messaging:MessagingV2Driver   oslo_messaging.notify._impl_noop:NoOpDriver
+            names=self._driver_names,       #conf中该参数为messagingv2
             invoke_on_load=True,
             invoke_args=[conf],
             invoke_kwds={

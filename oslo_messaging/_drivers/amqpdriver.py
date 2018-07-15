@@ -144,7 +144,7 @@ class AMQPIncomingMessage(base.RpcIncomingMessage):
         while True:
             try:
                 with self.listener.driver._get_connection(
-                        rpc_common.PURPOSE_SEND) as conn:
+                        rpc_common.PURPOSE_SEND) as conn:   #获取发送conn
                     self._send_reply(conn, reply, failure)
                 return
             except rpc_amqp.AMQPDestinationNotFound:
@@ -168,7 +168,7 @@ class AMQPIncomingMessage(base.RpcIncomingMessage):
     def acknowledge(self):
         self._message_operations_handler.do(self.message.acknowledge)
         self.listener.msg_id_cache.add(self.unique_id)
-
+    #重新入队列
     def requeue(self):
         # NOTE(sileht): In case of the connection is lost between receiving the
         # message and requeing it, this requeue call fail
@@ -178,7 +178,7 @@ class AMQPIncomingMessage(base.RpcIncomingMessage):
         # the end.
         self._message_operations_handler.do(self.message.requeue)
 
-
+#保存暂时不可达到的reply队列，ttl
 class ObsoleteReplyQueuesCache(object):
     """Cache of reply queue id that doesn't exists anymore.
 
@@ -227,14 +227,14 @@ class ObsoleteReplyQueuesCache(object):
 class AMQPListener(base.PollStyleListener):
 
     def __init__(self, driver, conn):
-        super(AMQPListener, self).__init__(driver.prefetch_size)
+        super(AMQPListener, self).__init__(driver.prefetch_size)    #prefetch_size一次相取多少数据
         self.driver = driver
         self.conn = conn
-        self.msg_id_cache = rpc_amqp._MsgIdCache()
+        self.msg_id_cache = rpc_amqp._MsgIdCache()  #根据_unique_id检查重复，返回不重复的，------add()
         self.incoming = []
-        self._shutdown = threading.Event()
+        self._shutdown = threading.Event()  #协程等待的信号，event.wait()
         self._shutoff = threading.Event()
-        self._obsolete_reply_queues = ObsoleteReplyQueuesCache()
+        self._obsolete_reply_queues = ObsoleteReplyQueuesCache()    #保存暂时不可达到的reply队列
         self._message_operations_handler = MessageOperationsHandler(
             "AMQPListener")
         self._current_timeout = ACK_REQUEUE_EVERY_SECONDS_MIN
@@ -264,7 +264,7 @@ class AMQPListener(base.PollStyleListener):
         stopwatch = timeutils.StopWatch(duration=timeout).start()
 
         while not self._shutdown.is_set():
-            self._message_operations_handler.process()
+            self._message_operations_handler.process()  #执行完所有的_message_operations_handler的task
 
             if self.incoming:
                 return self.incoming.pop(0)
@@ -563,7 +563,7 @@ class AMQPDriverBase(base.BaseDriver):
                           envelope=(version == 2.0), notify=True, retry=retry)
 
     def listen(self, target, batch_size, batch_timeout):
-        conn = self._get_connection(rpc_common.PURPOSE_LISTEN)
+        conn = self._get_connection(rpc_common.PURPOSE_LISTEN)  #生成新的conn
 
         listener = AMQPListener(self, conn)
 

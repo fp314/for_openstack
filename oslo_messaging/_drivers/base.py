@@ -33,7 +33,7 @@ base_opts = [
                help='The time-to-live in sec of idle connections in the pool')
 ]
 
-
+#包装器，从func获取batch_size个return的reply msg
 def batch_poll_helper(func):
     """Decorator to poll messages in batch
 
@@ -264,7 +264,7 @@ class Listener(object):
         until the cleanup is completed.
         """
 
-
+#获取msy,调用相关方法处理
 class PollStyleListenerAdapter(Listener):
     """A Listener that uses a PollStyleListener for message transfer. A
     dedicated thread is created to do message polling.

@@ -206,7 +206,7 @@ def _get_transport(conf, url=None, allowed_remote_exmods=None, aliases=None,
 
     try:    #实例化oslo_messaging._drivers.impl_rabbit:RabbitDriver
         mgr = driver.DriverManager('oslo.messaging.drivers',
-                                   url.transport.split('+')[0],
+                                   url.transport.split('+')[0],     #rabbit
                                    invoke_on_load=True,
                                    invoke_args=[conf, url],
                                    invoke_kwds=kwargs)

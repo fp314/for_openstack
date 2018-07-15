@@ -56,12 +56,12 @@ ALLOWED_EXMODS = [
 ]
 EXTRA_EXMODS = []
 
-
+#TRANSPORT、NOTIFICATION_TRANSPORT用于向自定义target发送消息；LEGACY_NOTIFIER, NOTIFIER用于向特定target（固定）发送消息
 def init(conf):
     global TRANSPORT, NOTIFICATION_TRANSPORT, LEGACY_NOTIFIER, NOTIFIER
     exmods = get_allowed_exmods()
-    TRANSPORT = create_transport(get_transport_url())   #
-    NOTIFICATION_TRANSPORT = messaging.get_notification_transport(
+    TRANSPORT = create_transport(get_transport_url())   #transport主要是封装类driver,driver提供send/listen等生产者、消费者方法，用于RPC
+    NOTIFICATION_TRANSPORT = messaging.get_notification_transport(      #与上一个transport基本类似，用于notification
         conf, allowed_remote_exmods=exmods)
     serializer = RequestContextSerializer(JsonPayloadSerializer())
     if conf.notifications.notification_format == 'unversioned':
@@ -69,13 +69,13 @@ def init(conf):
                                              serializer=serializer)
         NOTIFIER = messaging.Notifier(NOTIFICATION_TRANSPORT,
                                       serializer=serializer, driver='noop')
-    elif conf.notifications.notification_format == 'both':
+    elif conf.notifications.notification_format == 'both':      #default : both
         LEGACY_NOTIFIER = messaging.Notifier(NOTIFICATION_TRANSPORT,
-                                             serializer=serializer)
-        NOTIFIER = messaging.Notifier(
+                                             serializer=serializer)     #notifications.priority发送Notifier
+        NOTIFIER = messaging.Notifier(          #versioned_notifications.priority发送Notifier
             NOTIFICATION_TRANSPORT,
             serializer=serializer,
-            topics=conf.notifications.versioned_notifications_topics)
+            topics=conf.notifications.versioned_notifications_topics)       #default （list）: versioned_notifications
     else:
         LEGACY_NOTIFIER = messaging.Notifier(NOTIFICATION_TRANSPORT,
                                              serializer=serializer,
