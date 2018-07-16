@@ -433,19 +433,19 @@ class Router(object):
 
         """
         self.map = mapper
-        self._router = routes.middleware.RoutesMiddleware(self._dispatch,
+        self._router = routes.middleware.RoutesMiddleware(self._dispatch,   #修改environ，map匹配结果放入environ，return self._dispatch(environ, start_response)
                                                           self.map)
-
+    #调用__call__(environ, start_response),再调用self._router(environ, start_response)
     @webob.dec.wsgify(RequestClass=Request)
     def __call__(self, req):
         """Route the incoming request to a controller based on self.map.
 
         If no match, return a 404.
 
-        """
+        """          #修改environ，map匹配结果放入environ，return self._dispatch(environ, start_response)
         return self._router
 
-    @staticmethod
+    @staticmethod   #调用_dispatch(environ, start_response),再调用app(environ, start_response)
     @webob.dec.wsgify(RequestClass=Request)
     def _dispatch(req):
         """Dispatch the request to the appropriate controller.

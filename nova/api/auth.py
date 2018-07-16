@@ -35,7 +35,7 @@ LOG = logging.getLogger(__name__)
 def _load_pipeline(loader, pipeline):
     filters = [loader.get_filter(n) for n in pipeline[:-1]]
     app = loader.get_app(pipeline[-1])
-    filters.reverse()
+    filters.reverse()   #取反
     for filter in filters:
         app = filter(app)
     return app
@@ -53,7 +53,7 @@ def pipeline_factory(loader, global_conf, **local_conf):
 
 def pipeline_factory_v21(loader, global_conf, **local_conf):
     """A paste pipeline replica that keys off of auth_strategy."""
-    return _load_pipeline(loader, local_conf[CONF.api.auth_strategy].split())
+    return _load_pipeline(loader, local_conf[CONF.api.auth_strategy].split())   #default : keystone
 
 
 class InjectContext(wsgi.Middleware):

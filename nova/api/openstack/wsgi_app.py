@@ -84,4 +84,4 @@ def init_application(name):
 
     conf = conf_files[0]
 
-    return deploy.loadapp('config:%s' % conf, name=name)
+    return deploy.loadapp('config:%s' % conf, name=name)    #name:osapi_compute

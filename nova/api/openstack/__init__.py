@@ -132,14 +132,14 @@ class LegacyV2CompatibleWrapper(base_wsgi.Middleware):
         response = req.get_response(self.application)
         return self._filter_response_headers(response)
 
-
+#增加format限制：json|xml
 class APIMapper(routes.Mapper):
-    def routematch(self, url=None, environ=None):
+    def routematch(self, url=None, environ=None):   #匹配到“”的处理
         if url == "":
             result = self._match("", environ)
             return result[0], result[1]
         return routes.Mapper.routematch(self, url, environ)
-
+    #增加format限制：json|xml
     def connect(self, *args, **kargs):
         # NOTE(vish): Default the format part of a route to only accept json
         #             and xml so it doesn't eat all characters after a '.'
@@ -160,7 +160,7 @@ class ProjectMapper(APIMapper):
             project_id_regex = CONF.osapi_v21.project_id_regex
 
         return '{project_id:%s}' % project_id_regex
-
+    #resource方式增加map;两条url map ; 加入project_id_token（正则表达式）和不加project_id_token
     def resource(self, member_name, collection_name, **kwargs):
         project_id_token = self._get_project_id_token()
         if 'parent_resource' not in kwargs:
@@ -192,7 +192,7 @@ class ProjectMapper(APIMapper):
         routes.Mapper.resource(self, member_name,
                                      collection_name,
                                      **kwargs)
-
+    #connect方式增加map;两条url map ; 加入project_id_token（正则表达式）和不加project_id_token
     def create_route(self, path, method, controller, action):
         project_id_token = self._get_project_id_token()
 

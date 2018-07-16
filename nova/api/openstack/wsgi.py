@@ -460,14 +460,14 @@ class Resource(wsgi.Application):
         self.wsgi_extensions = {}
         self.wsgi_action_extensions = {}
         self.inherits = inherits
-
+    #wsgi_actions中放入controller的wsgi_actions中的value方法及其可以
     def register_actions(self, controller):
         """Registers controller actions with this resource."""
 
         actions = getattr(controller, 'wsgi_actions', {})
         for key, method_name in actions.items():
             self.wsgi_actions[key] = getattr(controller, method_name)
-
+    #wsgi_action_extensions、wsgi_action_extensions：key:value(list)
     def register_extensions(self, controller):
         """Registers controller extensions with this resource."""
 
@@ -516,7 +516,7 @@ class Resource(wsgi.Application):
         content_type = request.get_content_type()
 
         return content_type, request.body
-
+    #反序列化 JSON
     def deserialize(self, body):
         return JSONDeserializer().deserialize(body)
 
@@ -543,7 +543,7 @@ class Resource(wsgi.Application):
                 return response
 
         return None
-
+    #判断请求中是否应该有body;'POST','PUT',
     def _should_have_body(self, request):
         return request.method in _METHODS_WITH_BODY
 
@@ -680,7 +680,7 @@ class Resource(wsgi.Application):
                 response.headers.add('Vary', LEGACY_API_VERSION_REQUEST_HEADER)
 
         return response
-
+    #获取body,没有则生成{'body': None}
     def _get_request_content(self, body, request):
         contents = {}
         if self._should_have_body(request):

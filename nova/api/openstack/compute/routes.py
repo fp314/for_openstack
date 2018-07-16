@@ -883,12 +883,12 @@ class APIRouterV21(base_wsgi.Router):
                parameter. This parameter is used to test on some fake routes
                primarily.
         """
-        super(APIRouterV21, self).__init__(nova.api.openstack.ProjectMapper())
+        super(APIRouterV21, self).__init__(nova.api.openstack.ProjectMapper())  #该mapper：增加format现在（json/xml）；url增加加入project_id_token/
 
         if custom_routes is None:
             custom_routes = tuple()
 
-        for path, methods in ROUTE_LIST + custom_routes:
+        for path, methods in ROUTE_LIST + custom_routes:    #mapper中增加映射
             # NOTE(alex_xu): The variable 'methods' is a dict in normal, since
             # the dict includes all the methods supported in the path. But
             # if the variable 'method' is a string, it means a redirection.
