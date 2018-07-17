@@ -16,13 +16,14 @@
 
 import functools
 
-import microversion_parse
+
 from oslo_log import log as logging
 from oslo_serialization import jsonutils
 from oslo_utils import encodeutils
 from oslo_utils import strutils
 import six
 import webob
+import webob.dec
 
 from nova.api.openstack import api_version_request as api_version
 from nova.api.openstack import versioned_method
@@ -31,6 +32,7 @@ from nova import i18n
 from nova.i18n import _
 from nova import utils
 from nova import wsgi
+import microversion_parse
 
 
 LOG = logging.getLogger(__name__)
@@ -93,7 +95,7 @@ class Request(wsgi.Request):
         super(Request, self).__init__(*args, **kwargs)
         self._extension_data = {'db_items': {}}
         if not hasattr(self, 'api_version_request'):
-            self.api_version_request = api_version.APIVersionRequest()
+            self.api_version_request = api_version.APIVersionRequest()  #默认is_null == true
 
     def cache_db_items(self, key, items, item_key='id'):
         """Allow API methods to store objects from a DB query to be
@@ -288,7 +290,7 @@ def response(code):
         return func
     return decorator
 
-
+#主要数据headers、code、obj(body)；serialize()函数根据该数据生成返回webob.Response
 class ResponseObject(object):
     """Bundles a response object
 
@@ -420,7 +422,7 @@ class ResourceExceptionHandler(object):
         # We didn't handle the exception
         return False
 
-
+#关联/注册(extensions)controller,__call__()根据routs.mapper_match选择对应的controller.action，执行并返回最终结果。
 class Resource(wsgi.Application):
     """WSGI app that handles (de)serialization and controller dispatch.
 
@@ -452,13 +454,13 @@ class Resource(wsgi.Application):
         self.default_serializers = dict(json=JSONDictSerializer)
 
         # Copy over the actions dictionary
-        self.wsgi_actions = {}
+        self.wsgi_actions = {}  #存放action_name : method()  主方法
         if controller:
             self.register_actions(controller)
 
         # Save a mapping of extensions
-        self.wsgi_extensions = {}
-        self.wsgi_action_extensions = {}
+        self.wsgi_extensions = {}   #存放method_name : method()   扩展方法list
+        self.wsgi_action_extensions = {}    #存放action_name : method()   扩展方法list
         self.inherits = inherits
     #wsgi_actions中放入controller的wsgi_actions中的value方法及其可以
     def register_actions(self, controller):
@@ -486,16 +488,16 @@ class Resource(wsgi.Application):
                 if method_name not in self.wsgi_extensions:
                     self.wsgi_extensions[method_name] = []
                 self.wsgi_extensions[method_name].append(extension)
-
+    #获取mapper match，routes.middleware.RoutesMiddleware匹配的match,放在environs(request)里面。
     def get_action_args(self, request_environment):
         """Parse dictionary created by routes library."""
 
         # NOTE(Vek): Check for get_action_args() override in the
-        # controller
+        # controller    #优先调用controller.get_action_args(request_environment)
         if hasattr(self.controller, 'get_action_args'):
             return self.controller.get_action_args(request_environment)
 
-        try:
+        try:    #返回routes.middleware.RoutesMiddleware匹配的match,
             args = request_environment['wsgiorg.routing_args'][1].copy()
         except (KeyError, IndexError, AttributeError):
             return {}
@@ -519,7 +521,7 @@ class Resource(wsgi.Application):
     #反序列化 JSON
     def deserialize(self, body):
         return JSONDeserializer().deserialize(body)
-
+    #执行扩展方法
     def process_extensions(self, extensions, resp_obj, request,
                            action_args):
         for ext in extensions:
@@ -547,10 +549,10 @@ class Resource(wsgi.Application):
     def _should_have_body(self, request):
         return request.method in _METHODS_WITH_BODY
 
-    @webob.dec.wsgify(RequestClass=Request)
+    @webob.dec.wsgify(RequestClass=Request) #2次调用：1、本省调用(_process_stack())返回webob.response；2，webob.response(environ, start_response)进行最终的回复。
     def __call__(self, request):
         """WSGI method that controls (de)serialization and method dispatch."""
-
+        #默认为false
         if self.support_api_request_version:
             # Set the version of the API requested based on the header
             try:
@@ -563,7 +565,7 @@ class Resource(wsgi.Application):
                     explanation=e.format_message()))
 
         # Identify the action, its arguments, and the requested
-        # content type
+        # content type  #获取action
         action_args = self.get_action_args(request.environ)
         action = action_args.pop('action', None)
 
@@ -583,7 +585,7 @@ class Resource(wsgi.Application):
         #            decorator.
         return self._process_stack(request, action, action_args,
                                content_type, body, accept)
-
+    #调用主方法和扩展方法后返回webob.response
     def _process_stack(self, request, action, action_args,
                        content_type, body, accept):
         """Implement the processing stack."""
@@ -623,7 +625,7 @@ class Resource(wsgi.Application):
 
         project_id = action_args.pop("project_id", None)
         context = request.environ.get('nova.context')
-        if (context and project_id and (project_id != context.project_id)):
+        if (context and project_id and (project_id != context.project_id)): #检验错误project_id不对
             msg = _("Malformed request URL: URL's project_id '%(project_id)s'"
                     " doesn't match Context's project_id"
                     " '%(context_project_id)s'") % \
@@ -690,7 +692,7 @@ class Resource(wsgi.Application):
             else:
                 contents = self.deserialize(body)
         return contents
-
+    #获取action对应的方法,主方法和扩展方法
     def get_method(self, request, action, content_type, body):
         meth, extensions = self._get_method(request,
                                             action,
@@ -717,7 +719,7 @@ class Resource(wsgi.Application):
                     action not in _ROUTES_METHODS + ['action']):
                 # Propagate the error
                 raise
-        else:
+        else:   #该情况action_name == method_name
             return meth, self.wsgi_extensions.get(action, [])
 
         if action == 'action':
@@ -725,10 +727,10 @@ class Resource(wsgi.Application):
         else:
             action_name = action
 
-        # Look up the action method
-        return (self.wsgi_actions[action_name],
+        # Look up the action method #该情况action_name != method_name
+        return (self.wsgi_actions[action_name], #action_name到method()的转换
                 self.wsgi_action_extensions.get(action_name, []))
-
+    #执行主action方法
     def dispatch(self, method, request, action_args):
         """Dispatch a call to the action-specific method."""
 
@@ -788,7 +790,7 @@ def extends(*args, **kwargs):
     # OK, return the decorator instead
     return decorator
 
-
+#Controller基类的元类，update基类及类可调用属性的wsgi_actions及wsgi_extends
 class ControllerMetaclass(type):
     """Controller metaclass.
 
@@ -803,7 +805,7 @@ class ControllerMetaclass(type):
         actions = {}
         extensions = []
         versioned_methods = None
-        # start with wsgi actions from base classes
+        # start with wsgi actions from base classes #获取基类的wsgi_actions  update
         for base in bases:
             actions.update(getattr(base, 'wsgi_actions', {}))
 
@@ -814,12 +816,12 @@ class ControllerMetaclass(type):
                 # require naming explicitly what method is being versioned as
                 # it can be implicit based on the method decorated. It is a bit
                 # ugly.
-                if VER_METHOD_ATTR in base.__dict__:
+                if VER_METHOD_ATTR in base.__dict__:        #VER_METHOD_ATTR = 'versioned_methods'
                     versioned_methods = getattr(base, VER_METHOD_ATTR)
                     delattr(base, VER_METHOD_ATTR)
-
+        #获取可调用方法的wsgi_action，及wsgi_extends  update
         for key, value in cls_dict.items():
-            if not callable(value):
+            if not callable(value):     #可调用的方法
                 continue
             if getattr(value, 'wsgi_action', None):
                 actions[value.wsgi_action] = key
@@ -864,7 +866,7 @@ class Controller(object):
 
             # The first arg to all versioned methods is always the request
             # object. The version for the request is attached to the
-            # request object
+            # request object    #通过req获取版本需求，默认为0.0，is_null()
             if len(args) == 0:
                 ver = kwargs['req'].api_version_request
             else:
@@ -883,7 +885,7 @@ class Controller(object):
             raise exception.VersionNotFoundForAPIMethod(version=ver)
 
         try:
-            version_meth_dict = object.__getattribute__(self, VER_METHOD_ATTR)
+            version_meth_dict = object.__getattribute__(self, VER_METHOD_ATTR)  #VER_METHOD_ATTR = 'versioned_methods'
         except AttributeError:
             # No versioning on this class
             return object.__getattribute__(self, key)
