@@ -240,7 +240,7 @@ class Request(webob.Request):
                 environ['wsgi.url_scheme'] = scheme
         super(Request, self).__init__(environ, *args, **kwargs)
 
-
+#wsgi的app,ResourceV21继承Resource继承Application，__call__为最终方法会通过controller返回最终结果。
 class Application(object):
     """Base WSGI application wrapper. Subclasses need to implement __call__."""
 
@@ -316,7 +316,7 @@ class Middleware(Application):
 
     """
 
-    @classmethod
+    @classmethod    #调用后，返回调用它的cls的实例对象
     def factory(cls, global_config, **local_config):
         """Used for paste app factories in paste.deploy config files.
 
@@ -345,7 +345,7 @@ class Middleware(Application):
 
     def __init__(self, application):
         self.application = application
-
+    #调用app前对rep进行处理
     def process_request(self, req):
         """Called on each request.
 
@@ -355,7 +355,7 @@ class Middleware(Application):
 
         """
         return None
-
+    # 调用app后对response进行处理
     def process_response(self, response):
         """Do whatever you'd like to the response."""
         return response
@@ -365,7 +365,7 @@ class Middleware(Application):
         response = self.process_request(req)
         if response:
             return response
-        response = req.get_response(self.application)
+        response = req.get_response(self.application)   #调用app,并保存返回结果包括status, headerlist, app_iter，app的start_response被替换，用于保存返回数据status, headerlist
         return self.process_response(response)
 
 
@@ -458,8 +458,8 @@ class Router(object):
         match = req.environ['wsgiorg.routing_args'][1]
         if not match:
             return webob.exc.HTTPNotFound()
-        app = match['controller']
-        return app
+        app = match['controller']   #此处为ResourceV21对象，对controller进行包装及根据mapper进行方法调用管理
+        return app      #app(environ, start_response)会返回最终结果。
 
 
 class Loader(object):

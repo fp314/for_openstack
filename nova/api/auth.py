@@ -71,7 +71,7 @@ class InjectContext(wsgi.Middleware):
 
 class NovaKeystoneContext(wsgi.Middleware):
     """Make a request context from keystone headers."""
-
+    #生成environ['nova.context']
     @webob.dec.wsgify(RequestClass=wsgi.Request)
     def __call__(self, req):
         # Build a context, including the auth_token...
@@ -92,7 +92,7 @@ class NovaKeystoneContext(wsgi.Middleware):
         # middleware in newer versions.
         user_auth_plugin = req.environ.get('keystone.token_auth')
 
-        ctx = context.RequestContext.from_environ(
+        ctx = context.RequestContext.from_environ(      #生成RequestContext，以上代码根据req/environ获取数据，生成context
             req.environ,
             user_auth_plugin=user_auth_plugin,
             remote_address=remote_address,

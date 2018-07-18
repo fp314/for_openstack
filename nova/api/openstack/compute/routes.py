@@ -902,8 +902,8 @@ class APIRouterV21(base_wsgi.Router):
             for method, controller_info in methods.items():
                 # TODO(alex_xu): In the end, I want to create single controller
                 # instance instead of create controller instance for each
-                # route.
-                controller = controller_info[0]()
+                # route.    #ResourceV21对controller进行包装及根据mapper进行方法调用管理
+                controller = controller_info[0]()       #返回ResourceV21包含对应controller的所有action及extensions方法，执行是需要根据mapper选择相应的方法。
                 action = controller_info[1]
                 self.map.create_route(path, method, controller, action)
 
