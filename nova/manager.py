@@ -97,7 +97,7 @@ class Manager(base.Base, PeriodicTasks):
         self.host = host
         self.backdoor_port = None
         self.service_name = service_name
-        self.notifier = rpc.get_notifier(self.service_name, self.host)
+        self.notifier = rpc.get_notifier(self.service_name, self.host)  #获取一个notifier，publisher_id = service_name.host
         self.additional_endpoints = []
         super(Manager, self).__init__(db_driver)
 

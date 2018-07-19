@@ -23,7 +23,7 @@ import nova.conf
 
 CONF = nova.conf.CONF
 
-
+#载入 db api
 class Base(object):
     """DB driver is injected in the init method."""
 

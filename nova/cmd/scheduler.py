@@ -35,11 +35,11 @@ CONF = nova.conf.CONF
 def main():
     config.parse_args(sys.argv)
     logging.setup(CONF, "nova")
-    utils.monkey_patch()
-    objects.register_all()
-    objects.Service.enable_min_version_cache()
+    utils.monkey_patch()    #为指定model的所有方法增加decorator。
+    objects.register_all()  #import nova.objects下所有model
+    objects.Service.enable_min_version_cache()  #低版本缓存 ？？？
 
-    gmr.TextGuruMeditation.setup_autorun(version)
+    gmr.TextGuruMeditation.setup_autorun(version)   #？？？
 
     server = service.Service.create(binary='nova-scheduler',
                                     topic=scheduler_rpcapi.RPC_TOPIC)

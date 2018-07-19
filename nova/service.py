@@ -245,7 +245,7 @@ class Service(service.Service):
         if periodic_fuzzy_delay is None:
             periodic_fuzzy_delay = CONF.periodic_fuzzy_delay
 
-        debugger.init()
+        debugger.init()     #debugger ???
 
         service_obj = cls(host, binary, topic, manager,
                           report_interval=report_interval,

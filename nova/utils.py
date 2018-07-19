@@ -560,7 +560,7 @@ def format_remote_path(host, path):
 
     return "%s:%s" % (safe_ip_format(host), path)
 
-
+#依赖模块inspect及pyclbr，为monkey_patch_modules（数据格式module:decorator）指定module的所有方法（包括模块.类.方法）增加装饰器decorator
 def monkey_patch():
     """If the CONF.monkey_patch set as True,
     this function patches a decorator

@@ -19,7 +19,7 @@ from oslo_utils import importutils
 
 from nova.scheduler import utils
 
-
+#包装klass，用时载实例化对象
 class LazyLoader(object):
 
     def __init__(self, klass, *args, **kwargs):

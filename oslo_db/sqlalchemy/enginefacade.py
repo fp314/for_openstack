@@ -734,7 +734,7 @@ class _TransactionContextTLocal(threading.local):
     def __reduce__(self):
         return _TransactionContextTLocal, ()
 
-
+#管理TransactionFactory
 class _TransactionContextManager(object):
     """Provide context-management and decorator patterns for transactions.
 

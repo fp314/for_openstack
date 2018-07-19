@@ -96,7 +96,7 @@ def periodic_task(*args, **kwargs):
 
 
 class _PeriodicTasksMeta(type):
-    def _add_periodic_task(cls, task):
+    def _add_periodic_task(cls, task):  #增加(task._periodic_name，task)-->_periodic_tasks;_periodic_spacing[task._periodic_name] = task._periodic_spacing
         """Add a periodic task to the list of periodic tasks.
 
         The task should already be decorated by @periodic_task.
@@ -125,7 +125,7 @@ class _PeriodicTasksMeta(type):
         cls._periodic_tasks.append((name, task))
         cls._periodic_spacing[name] = task._periodic_spacing
         return True
-
+    #为cls增加_periodic_tasks、_periodic_spacing列表，遍历cls.__dict__，将task-->_periodic_tasks
     def __init__(cls, names, bases, dict_):
         """Metaclass that allows us to collect decorated periodic tasks."""
         super(_PeriodicTasksMeta, cls).__init__(names, bases, dict_)
@@ -148,7 +148,7 @@ class _PeriodicTasksMeta(type):
             if getattr(value, '_periodic_task', False):
                 cls._add_periodic_task(value)
 
-
+#返回task最后运行时间last_run,加入了少许偏移量。
 def _nearest_boundary(last_run, spacing):
     """Find the nearest boundary in the past.
 
@@ -171,12 +171,12 @@ def _nearest_boundary(last_run, spacing):
     return current_time - offset + jitter
 
 
-@six.add_metaclass(_PeriodicTasksMeta)
+@six.add_metaclass(_PeriodicTasksMeta)  #为类增加_periodic_tasks、_periodic_spacing列表
 class PeriodicTasks(object):
     def __init__(self, conf):
         super(PeriodicTasks, self).__init__()
         self.conf = conf
-        self.conf.register_opts(_options.periodic_opts)
+        self.conf.register_opts(_options.periodic_opts) #conf.run_external_periodic_tasks = True 默认
         self._periodic_last_run = {}
         for name, task in self._periodic_tasks:
             self._periodic_last_run[name] = task._periodic_last_run
@@ -192,28 +192,28 @@ class PeriodicTasks(object):
 
     def run_periodic_tasks(self, context, raise_on_error=False):
         """Tasks to be run at a periodic interval."""
-        idle_for = DEFAULT_INTERVAL
+        idle_for = DEFAULT_INTERVAL # 60.0
         for task_name, task in self._periodic_tasks:
             if (task._periodic_external_ok and not
                self.conf.run_external_periodic_tasks):
                 continue
-            cls_name = reflection.get_class_name(self, fully_qualified=False)
+            cls_name = reflection.get_class_name(self, fully_qualified=False)   #调用该函数的cls_name，用于log
             full_task_name = '.'.join([cls_name, task_name])
 
-            spacing = self._periodic_spacing[task_name]
-            last_run = self._periodic_last_run[task_name]
+            spacing = self._periodic_spacing[task_name]     #运行时间间隔
+            last_run = self._periodic_last_run[task_name]   #最后运行时间
 
             # Check if due, if not skip
-            idle_for = min(idle_for, spacing)
+            idle_for = min(idle_for, spacing)   #最近需要执行的任务，还要多久。
             if last_run is not None:
                 delta = last_run + spacing - now()
-                if delta > 0:
+                if delta > 0:   #时间未到
                     idle_for = min(idle_for, delta)
                     continue
 
             LOG.debug("Running periodic task %(full_task_name)s",
                       {"full_task_name": full_task_name})
-            self._periodic_last_run[task_name] = _nearest_boundary(
+            self._periodic_last_run[task_name] = _nearest_boundary(     #设定最后运行时间加入了少许偏移量。
                 last_run, spacing)
 
             try:
