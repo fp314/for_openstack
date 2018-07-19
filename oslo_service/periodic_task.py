@@ -89,7 +89,7 @@ def periodic_task(*args, **kwargs):
     # in as the first argument, like:
     #
     #   periodic_task(f)
-    if kwargs:
+    if kwargs:      #有参数返回decorator
         return decorator
     else:
         return decorator(args[0])
@@ -205,7 +205,7 @@ class PeriodicTasks(object):
 
             # Check if due, if not skip
             idle_for = min(idle_for, spacing)   #最近需要执行的任务，还要多久。
-            if last_run is not None:
+            if last_run is not None:        #last_run is None则立即run
                 delta = last_run + spacing - now()
                 if delta > 0:   #时间未到
                     idle_for = min(idle_for, delta)

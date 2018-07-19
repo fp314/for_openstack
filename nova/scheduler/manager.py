@@ -72,20 +72,20 @@ class SchedulerManager(manager.Manager):
         client = scheduler_client.SchedulerClient()
         self.placement_client = client.reportclient
         if not scheduler_driver:
-            scheduler_driver = CONF.scheduler.driver
-        self.driver = driver.DriverManager(
+            scheduler_driver = CONF.scheduler.driver        #filter_scheduler
+        self.driver = driver.DriverManager(     #nova.scheduler.filter_scheduler:FilterScheduler
                 "nova.scheduler.driver",
                 scheduler_driver,
                 invoke_on_load=True).driver
         super(SchedulerManager, self).__init__(service_name='scheduler',
                                                *args, **kwargs)
 
-    @periodic_task.periodic_task
+    @periodic_task.periodic_task    #为方法添加periodic_task相关属性，在初始化时会将该方法增加到相应队列中
     def _expire_reservations(self, context):
         QUOTAS.expire(context)
 
     @periodic_task.periodic_task(
-        spacing=CONF.scheduler.discover_hosts_in_cells_interval,
+        spacing=CONF.scheduler.discover_hosts_in_cells_interval,    #default=-1  默认不添加该task   conf中需要配置
         run_immediately=True)
     def _discover_hosts_in_cells(self, context):
         host_mappings = host_mapping_obj.discover_hosts(context)
@@ -96,12 +96,12 @@ class SchedulerManager(manager.Manager):
                                                     hm.host)
                                          for hm in host_mappings])})
 
-    @periodic_task.periodic_task(spacing=CONF.scheduler.periodic_task_interval,
+    @periodic_task.periodic_task(spacing=CONF.scheduler.periodic_task_interval,     #default=60
                                  run_immediately=True)
     def _run_periodic_tasks(self, context):
-        self.driver.run_periodic_tasks(context)
+        self.driver.run_periodic_tasks(context)         #nova.scheduler.filter_scheduler:FilterScheduler中该方法为空
 
-    @messaging.expected_exceptions(exception.NoValidHost)
+    @messaging.expected_exceptions(exception.NoValidHost)   #该装饰器用于捕捉异常并raise
     def select_destinations(self, ctxt,
                             request_spec=None, filter_properties=None,
                             spec_obj=_sentinel, instance_uuids=None):
