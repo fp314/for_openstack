@@ -114,7 +114,7 @@ class ServiceBase(object):
 
 class Singleton(type):
     _instances = {}
-    _semaphores = lockutils.Semaphores()
+    _semaphores = lockutils.Semaphores()        #信号量 ???
 
     def __call__(cls, *args, **kwargs):
         with lockutils.lock('singleton_lock', semaphores=cls._semaphores):
@@ -123,7 +123,7 @@ class Singleton(type):
                     *args, **kwargs)
         return cls._instances[cls]
 
-
+#单例，绑定sig与处理函数handers,用eventlet执行handers
 @six.add_metaclass(Singleton)
 class SignalHandler(object):
 
@@ -132,19 +132,19 @@ class SignalHandler(object):
         # Map all signal names to signal integer values and create a
         # reverse mapping (for easier + quick lookup).
         self._ignore_signals = ('SIG_DFL', 'SIG_IGN')
-        self._signals_by_name = dict((name, getattr(signal, name))
+        self._signals_by_name = dict((name, getattr(signal, name))  #获取信号了 name:value
                                      for name in dir(signal)
                                      if name.startswith("SIG")
                                      and name not in self._ignore_signals)
-        self.signals_to_name = dict(
+        self.signals_to_name = dict(                                #value : name
             (sigval, name)
             for (name, sigval) in self._signals_by_name.items())
-        self._signal_handlers = collections.defaultdict(set)
+        self._signal_handlers = collections.defaultdict(set)    #dict 的value值类型为set;不存在的值默认值为set()
         self.clear()
 
     def clear(self):
         for sig in self._signal_handlers:
-            signal.signal(sig, signal.SIG_DFL)
+            signal.signal(sig, signal.SIG_DFL)  #默认方式处理
         self._signal_handlers.clear()
 
     def add_handlers(self, signals, handler):
@@ -154,7 +154,7 @@ class SignalHandler(object):
     def add_handler(self, sig, handler):
         if not self.is_signal_supported(sig):
             return
-        signo = self._signals_by_name[sig]
+        signo = self._signals_by_name[sig]  #获取sig name对应的number
         self._signal_handlers[signo].add(handler)
         signal.signal(signo, self._handle_signal)
 
@@ -181,7 +181,7 @@ class SignalHandler(object):
     def is_signal_supported(self, sig_name):
         return sig_name in self._signals_by_name
 
-
+#包装管理services
 class Launcher(object):
     """Launch one or more services and wait for them to complete."""
 
@@ -197,12 +197,12 @@ class Launcher(object):
         self.conf = conf
         conf.register_opts(_options.service_opts)
         self.services = Services()
-        self.backdoor_port = (
+        self.backdoor_port = (      #后门程序   ？？？   默认不运行
             eventlet_backdoor.initialize_if_enabled(self.conf))
         self.restart_method = restart_method
-        if restart_method not in _LAUNCHER_RESTART_METHODS:
+        if restart_method not in _LAUNCHER_RESTART_METHODS:     #['reload', 'mutate']
             raise ValueError(_("Invalid restart_method: %s") % restart_method)
-
+    #将sevice加入队列services
     def launch_service(self, service, workers=1):
         """Load and start the given service.
 
@@ -254,7 +254,7 @@ class SignalExit(SystemExit):
         super(SignalExit, self).__init__(exccode)
         self.signo = signo
 
-
+#定义了各种sig处理函数
 class ServiceLauncher(Launcher):
     """Runs one or more service in a parent process."""
     def __init__(self, conf, restart_method='reload'):
@@ -322,12 +322,12 @@ class ServiceLauncher(Launcher):
 
         :returns: termination status
         """
-        systemd.notify_once()
+        systemd.notify_once()       #systemd通知？？？
         self.signal_handler.clear()
         while True:
-            self.handle_signal()
+            self.handle_signal()    #设置相应sig处理函数
             status, signo = self._wait_for_exit_or_signal()
-            if not _is_sighup_and_daemon(signo):
+            if not _is_sighup_and_daemon(signo):    #restart sig
                 break
             self.restart()
 
@@ -673,13 +673,13 @@ class Service(ServiceBase):
         """Wait for a service to shut down."""
         self.tg.wait()
 
-
+#管理多个service
 class Services(object):
 
     def __init__(self):
         self.services = []
-        self.tg = threadgroup.ThreadGroup()
-        self.done = event.Event()
+        self.tg = threadgroup.ThreadGroup()     #类似多线程管理
+        self.done = event.Event()       #用来告诉线程，结束任务
 
     def add(self, service):
         """Add a service to a list and create a thread to run it.
@@ -731,9 +731,9 @@ class Services(object):
             LOG.exception('Error starting thread.')
             raise SystemExit(1)
         else:
-            done.wait()
+            done.wait()     #用于识别线程是否结束
 
-
+#restart_method='reload' 'mutate'，两种方式的区别有待分析。
 def launch(conf, service, workers=1, restart_method='reload'):
     """Launch a service with a given number of workers.
 

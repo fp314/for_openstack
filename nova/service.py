@@ -132,7 +132,7 @@ class Service(service.Service):
         self.periodic_interval_max = periodic_interval_max      #向数据库汇报状态相关参数
         self.saved_args, self.saved_kwargs = args, kwargs
         self.backdoor_port = None
-        if objects_base.NovaObject.indirection_api:
+        if objects_base.NovaObject.indirection_api:         #默认indirection_api = None
             conductor_api = conductor.API()
             conductor_api.wait_until_ready(context.get_admin_context())
         setup_profiler(binary, self.host)  #分析器相关 ？？？

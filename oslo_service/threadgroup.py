@@ -62,7 +62,7 @@ class Thread(object):
     def cancel(self, *throw_args):
         self.thread.cancel(*throw_args)
 
-#管理timers和greenthreads
+#管理timers和greenthreads    多线程管理
 class ThreadGroup(object):
     """The point of the ThreadGroup class is to:
 
@@ -94,8 +94,8 @@ class ThreadGroup(object):
     def add_thread(self, callback, *args, **kwargs):
         gt = self.pool.spawn(callback, *args, **kwargs)
         th = Thread(gt, self, link=False)
-        self.threads.append(th)
-        gt.link(_on_thread_done, self, th)
+        self.threads.append(th)     #加入队列
+        gt.link(_on_thread_done, self, th)  #th完成后调用thread_done，移除th
         return th
 
     def thread_done(self, thread):
