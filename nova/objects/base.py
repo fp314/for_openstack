@@ -238,7 +238,7 @@ class NovaObjectSerializer(messaging.NoOpSerializer):
             if iterable == set:
                 iterable = list
             return iterable([action_fn(context, value) for value in values])
-
+    #迭代处理
     def serialize_entity(self, context, entity):
         if isinstance(entity, (tuple, list, set, dict)):
             entity = self._process_iterable(context, self.serialize_entity,

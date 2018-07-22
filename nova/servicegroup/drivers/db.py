@@ -33,7 +33,7 @@ class DbDriver(base.Driver):
 
     def __init__(self, *args, **kwargs):
         self.service_down_time = CONF.service_down_time
-
+    #为service增加定时任务_report_state，并执行
     def join(self, member, group, service=None):
         """Add a new member to a service group.
 
@@ -51,8 +51,8 @@ class DbDriver(base.Driver):
         report_interval = service.report_interval
         if report_interval:
             service.tg.add_timer(report_interval, self._report_state,
-                                 api.INITIAL_REPORTING_DELAY, service)
-
+                                 api.INITIAL_REPORTING_DELAY, service)  #INITIAL_REPORTING_DELAY = 5
+    #检查服务是否存活状态，最后一次上报db的时间与service_down_time比较
     def is_up(self, service_ref):
         """Moved from nova.utils
         Check whether a service is up based on last heartbeat.
@@ -83,7 +83,7 @@ class DbDriver(base.Driver):
         """Get the updated time from db"""
         return service_ref['updated_at']
 
-    def _report_state(self, service):
+    def _report_state(self, service):   #向数据库汇报服务的状态
         """Update the state of this service in the datastore."""
 
         try:

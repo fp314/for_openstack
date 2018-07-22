@@ -44,8 +44,8 @@ class API(object):
         created.
         '''
         # Make sure report interval is less than service down time
-        report_interval = CONF.report_interval
-        if CONF.service_down_time <= report_interval:
+        report_interval = CONF.report_interval      #default=10
+        if CONF.service_down_time <= report_interval:   #default=60,
             new_service_down_time = int(report_interval * 2.5)
             LOG.warning(_LW("Report interval must be less than service down "
                             "time. Current config: <service_down_time: "
@@ -57,7 +57,7 @@ class API(object):
                          'new_service_down_time': new_service_down_time})
             CONF.set_override('service_down_time', new_service_down_time)
 
-        driver_class = _driver_name_class_mapping[CONF.servicegroup_driver]
+        driver_class = _driver_name_class_mapping[CONF.servicegroup_driver]     #'db': 'nova.servicegroup.drivers.db.DbDriver',
         self._driver = importutils.import_object(driver_class,
                                                  *args, **kwargs)
 

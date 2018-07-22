@@ -13,7 +13,7 @@
 #    License for the specific language governing permissions and limitations
 #    under the License.
 
-
+#主版本必须一致，副版本必须大于需求
 def version_is_compatible(imp_version, version):
     """Determine whether versions are compatible.
 

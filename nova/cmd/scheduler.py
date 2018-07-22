@@ -42,6 +42,6 @@ def main():
     gmr.TextGuruMeditation.setup_autorun(version)   #？？？
 
     server = service.Service.create(binary='nova-scheduler',
-                                    topic=scheduler_rpcapi.RPC_TOPIC)
+                                    topic=scheduler_rpcapi.RPC_TOPIC)   #"scheduler"
     service.serve(server)
     service.wait()

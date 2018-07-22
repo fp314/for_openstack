@@ -85,7 +85,7 @@ class ServerListenError(MessagingServerError):
 class TaskTimeout(MessagingServerError):
     """Raised if we timed out waiting for a task to complete."""
 
-
+#多线程状态下，保证函数执行顺序
 class _OrderedTask(object):
     """A task which must be executed in a particular order.
 
@@ -207,11 +207,11 @@ class _OrderedTask(object):
                 self._wait(lambda: self._state == self.RUNNING,
                            msg, log_after, timeout_timer)
 
-
+#1、自动扫描带'_ordered'的method，加入tasks并标记其状态；2、装饰器decorate_ordered，设置函数执行顺序。
 class _OrderedTaskRunner(object):
     """Mixin for a class which executes ordered tasks."""
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, *args, **kwargs):        #自动扫描带'_ordered'的method，加入tasks并标记其状态
         super(_OrderedTaskRunner, self).__init__(*args, **kwargs)
 
         # Get a list of methods on this object which have the _ordered
@@ -226,10 +226,10 @@ class _OrderedTaskRunner(object):
 
     def reset_states(self):
         # Create new task states for tasks in reset
-        self._states = {task: _OrderedTask(task) for task in self._tasks}
+        self._states = {task: _OrderedTask(task) for task in self._tasks}   #存放task的状态
 
     @staticmethod
-    def decorate_ordered(fn, state, after, reset_after):
+    def decorate_ordered(fn, state, after, reset_after):    #在reset_after函数执行完成后reset;等待after执行完成；执行fn,状态标记为state
 
         @functools.wraps(fn)
         def wrapper(self, *args, **kwargs):
@@ -244,7 +244,7 @@ class _OrderedTaskRunner(object):
             with self._reset_lock:
                 if (reset_after is not None and
                         self._states[reset_after].complete):
-                    self.reset_states()
+                    self.reset_states()     #重置all tasks状态
 
             # Store the states we started with in case the state wraps on us
             # while we're sleeping. We must wait and run_once in the same
@@ -252,7 +252,7 @@ class _OrderedTaskRunner(object):
             # safely do nothing.
             states = self._states
 
-            log_after = kwargs.pop('log_after', DEFAULT_LOG_AFTER)
+            log_after = kwargs.pop('log_after', DEFAULT_LOG_AFTER)  #DEFAULT_LOG_AFTER = 30
             timeout = kwargs.pop('timeout', None)
 
             timeout_timer = None
@@ -270,7 +270,7 @@ class _OrderedTaskRunner(object):
                                    log_after, timeout_timer)
         return wrapper
 
-
+#为函数设置'_ordered'属性，并设置其重置条件reset_after.complete，和函数执行顺序after函数执行后执行
 def ordered(after=None, reset_after=None):
     """A method which will be executed as an ordered task. The method will be
     called exactly once, however many times it is called. If it is called
@@ -347,7 +347,7 @@ class MessageHandlingServer(service.ServiceBase, _OrderedTaskRunner):
         self.listener = None
 
         try:
-            mgr = driver.DriverManager('oslo.messaging.executors',
+            mgr = driver.DriverManager('oslo.messaging.executors',      #futurist:GreenThreadPoolExecutor  线程池
                                        self.executor_type)
         except RuntimeError as ex:
             raise ExecutorLoadFailure(self.executor_type, ex)
@@ -365,7 +365,7 @@ class MessageHandlingServer(service.ServiceBase, _OrderedTaskRunner):
 
         :param incoming: incoming request.
         """
-        self._work_executor.submit(self._process_incoming, incoming)
+        self._work_executor.submit(self._process_incoming, incoming)  #异步调用
 
     @abc.abstractmethod
     def _process_incoming(self, incoming):
@@ -380,7 +380,7 @@ class MessageHandlingServer(service.ServiceBase, _OrderedTaskRunner):
         :return: MessageListenerAdapter
         """
 
-    @ordered(reset_after='stop')
+    @ordered(reset_after='stop')    #stop函数被调用过，则重置所有函数执行status
     def start(self, override_pool_size=None):
         """Start handling incoming messages.
 
@@ -408,9 +408,9 @@ class MessageHandlingServer(service.ServiceBase, _OrderedTaskRunner):
 
         if self.executor_type in ("threading", "eventlet"):
             executor_opts["max_workers"] = (
-                override_pool_size or self.conf.executor_thread_pool_size
+                override_pool_size or self.conf.executor_thread_pool_size  #默认64
             )
-        self._work_executor = self._executor_cls(**executor_opts)
+        self._work_executor = self._executor_cls(**executor_opts)  #线程池
 
         try:
             self.listener = self._create_listener()
@@ -419,7 +419,7 @@ class MessageHandlingServer(service.ServiceBase, _OrderedTaskRunner):
 
         self.listener.start(self._on_incoming)
 
-    @ordered(after='start')
+    @ordered(after='start')     #在start函数完成执行，才会调用stop
     def stop(self):
         """Stop handling incoming messages.
 
@@ -431,7 +431,7 @@ class MessageHandlingServer(service.ServiceBase, _OrderedTaskRunner):
         self.listener.stop()
         self._started = False
 
-    @ordered(after='stop')
+    @ordered(after='stop')  #在stop函数完成执行，才会调用wait
     def wait(self):
         """Wait for message processing to complete.
 
@@ -442,7 +442,7 @@ class MessageHandlingServer(service.ServiceBase, _OrderedTaskRunner):
         Once it's finished, the underlying driver resources associated to this
         server are released (like closing useless network connections).
         """
-        self._work_executor.shutdown(wait=True)
+        self._work_executor.shutdown(wait=True) #等待线程池中任务完成再关闭
 
         # Close listener connection after processing all messages
         self.listener.cleanup()

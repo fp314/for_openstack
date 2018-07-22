@@ -65,7 +65,7 @@ class BaseAPI(object):
 class BaseRPCAPI(object):
     """Server side of the base RPC API."""
 
-    target = messaging.Target(namespace=_NAMESPACE, version='1.1')
+    target = messaging.Target(namespace=_NAMESPACE, version='1.1')      #_NAMESPACE = 'baseapi'
 
     def __init__(self, service_name, backdoor_port):
         self.service_name = service_name

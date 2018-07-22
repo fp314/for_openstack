@@ -109,7 +109,7 @@ class DefaultRPCAccessPolicy(RPCAccessPolicyBase):
         projects that rely on exposing private methods.
 
     """
-
+    #_开头的方法 not allow
     def is_allowed(self, endpoint, method):
         return not method.startswith('_')
 
@@ -122,7 +122,7 @@ class ExplicitRPCAccessPolicy(RPCAccessPolicyBase):
             return hasattr(getattr(endpoint, method), 'exposed')
         return False
 
-
+#endpoints找到合适的endpoint，调用起对应的method，并返回结果。
 class RPCDispatcher(dispatcher.DispatcherBase):
     """A message dispatcher which understands RPC messages.
 
@@ -211,7 +211,7 @@ class RPCDispatcher(dispatcher.DispatcherBase):
             if not target:
                 target = self._default_target
 
-            if not (self._is_namespace(target, namespace) and
+            if not (self._is_namespace(target, namespace) and   #检查namespace与version是否满足需求
                     self._is_compatible(target, version)):
                 continue
 

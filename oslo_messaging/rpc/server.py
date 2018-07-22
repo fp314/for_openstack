@@ -153,7 +153,7 @@ class RPCServer(msg_server.MessageHandlingServer):
     def _process_incoming(self, incoming):
         message = incoming[0]
         try:
-            message.acknowledge()
+            message.acknowledge()   #回答mes
         except Exception:
             LOG.exception(_LE("Can not acknowledge message. Skip processing"))
             return

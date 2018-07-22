@@ -105,7 +105,7 @@ def assert_eventlet_uses_monotonic_clock():
             'eventlet hub is not using a monotonic clock - '
             'periodic tasks will be affected by drifts of system time.')
 
-
+#启动的主要功能：1、rpc服务监听消费，主要调用manager;2、周期性任务，上报服务的状态,用tg.add_timer；3、manger中周期性任务的启动，循环执行，用tg.add_dynamic_timer
 class Service(service.Service):
     """Service object for binaries running on hosts.
 
@@ -122,7 +122,7 @@ class Service(service.Service):
         self.binary = binary    #服务名字
         self.topic = topic      #RPC
         self.manager_class_name = manager    #_1.1功能模块名称
-        self.servicegroup_api = servicegroup.API()
+        self.servicegroup_api = servicegroup.API()  #服务状态上报db相关
         manager_class = importutils.import_class(self.manager_class_name)  #_1.2动态加载manager模块中的manager_class
         self.manager = manager_class(host=self.host, *args, **kwargs)  #_1.3实例化manager_class
         self.rpcserver = None
@@ -149,7 +149,7 @@ class Service(service.Service):
     def start(self):
         assert_eventlet_uses_monotonic_clock() #eventlet使用的时间类型判断是否为CLOCK_MONTONIC
 
-        verstr = version.version_string_with_package()  #版本信息  ？？？
+        verstr = version.version_string_with_package()  #版本信息  ？？？   log用
         LOG.info(_LI('Starting %(topic)s node (version %(version)s)'),
                   {'topic': self.topic, 'version': verstr})
         self.basic_config_check()     #尝试temp文件的创建与删除操作
@@ -186,9 +186,9 @@ class Service(service.Service):
         ]
         endpoints.extend(self.manager.additional_endpoints)
 
-        serializer = objects_base.NovaObjectSerializer()
+        serializer = objects_base.NovaObjectSerializer()    #序列化、反序列化
 
-        self.rpcserver = rpc.get_server(target, endpoints, serializer)
+        self.rpcserver = rpc.get_server(target, endpoints, serializer)  #根据target生成prc消费者，调用endpoints中对象方法处理返回结果。
         self.rpcserver.start()
 
         self.manager.post_start_hook()
@@ -198,13 +198,13 @@ class Service(service.Service):
         # Add service to the ServiceGroup membership group.
         self.servicegroup_api.join(self.host, self.topic, self)
 
-        if self.periodic_enable:
-            if self.periodic_fuzzy_delay:
+        if self.periodic_enable:    #default=True,
+            if self.periodic_fuzzy_delay:   #default=60,
                 initial_delay = random.randint(0, self.periodic_fuzzy_delay)
             else:
                 initial_delay = None
 
-            self.tg.add_dynamic_timer(self.periodic_tasks,
+            self.tg.add_dynamic_timer(self.periodic_tasks,      #增加执行周期任务
                                      initial_delay=initial_delay,
                                      periodic_interval_max=
                                         self.periodic_interval_max)

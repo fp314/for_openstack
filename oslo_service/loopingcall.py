@@ -83,10 +83,10 @@ def _Event():
     else:
         return _GreenEvent()
 
-
+#包装threading.Event()
 class _ThreadingEvent(object):
     def __init__(self):
-        self._abort = threading.Event()
+        self._abort = threading.Event()     #停止
 
     def is_running(self):
         return not self._abort.is_set()
@@ -226,8 +226,8 @@ class FixedIntervalLoopingCall(LoopingCallBase):
 
     def start(self, interval, initial_delay=None, stop_on_exception=True):
         def _idle_for(result, elapsed):
-            delay = round(elapsed - interval, 2)
-            if delay > 0:
+            delay = round(elapsed - interval, 2)    #四舍五入值
+            if delay > 0:   #函数执行时间大于要求的间隔时间
                 func_name = reflection.get_callable_name(self.f)
                 LOG.warning('Function %(func_name)r run outlasted '
                             'interval by %(delay).2f sec',
