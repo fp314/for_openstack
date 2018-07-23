@@ -41,6 +41,6 @@ def main():
 
     server = service.Service.create(binary='nova-conductor',
                                     topic=CONF.conductor.topic)
-    workers = CONF.conductor.workers or processutils.get_worker_count()
+    workers = CONF.conductor.workers or processutils.get_worker_count()     #获取cpu核数
     service.serve(server, workers=workers)
     service.wait()

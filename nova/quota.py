@@ -1430,9 +1430,9 @@ class QuotaEngine(object):
         if self.__driver:
             return self.__driver
         if not self._driver_cls:
-            self._driver_cls = CONF.quota.driver
+            self._driver_cls = CONF.quota.driver    #default='nova.quota.DbQuotaDriver'
         if isinstance(self._driver_cls, six.string_types):
-            self._driver_cls = importutils.import_object(self._driver_cls)
+            self._driver_cls = importutils.import_object(self._driver_cls)  #实例化
         self.__driver = self._driver_cls
         return self.__driver
 

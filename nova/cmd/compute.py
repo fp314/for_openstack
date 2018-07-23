@@ -54,6 +54,6 @@ def main():
     objects_base.NovaObject.indirection_api = conductor_rpcapi.ConductorAPI()
     objects.Service.enable_min_version_cache()
     server = service.Service.create(binary='nova-compute',
-                                    topic=compute_rpcapi.RPC_TOPIC)
+                                    topic=compute_rpcapi.RPC_TOPIC)     #RPC_TOPIC = "compute"
     service.serve(server)
     service.wait()

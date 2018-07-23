@@ -423,7 +423,7 @@ class ProcessLauncher(object):
             self.launcher.stop()
 
         sys.exit(1)
-
+    #设置子进程的sig
     def _child_process_handle_signal(self):
         # Setup child signal handlers differently
 
@@ -498,7 +498,7 @@ class ProcessLauncher(object):
         wrap.forktimes.append(time.time())
 
         pid = os.fork()
-        if pid == 0:
+        if pid == 0:    #子进程
             self.launcher = self._child_process(wrap.service)
             while True:
                 self._child_process_handle_signal()
