@@ -319,7 +319,7 @@ class PasteAppNotFound(Exception):
 
 class Loader(object):
     """Used to load WSGI applications from paste configurations."""
-
+    #寻找api-paste.ini
     def __init__(self, conf):
         """Initialize the loader, and attempt to find the config.
 
@@ -330,7 +330,7 @@ class Loader(object):
         conf.register_opts(_options.wsgi_opts)
         self.config_path = None
 
-        config_path = conf.api_paste_config
+        config_path = conf.api_paste_config     # default="api-paste.ini"
         if not os.path.isabs(config_path):
             self.config_path = conf.find_file(config_path)
         elif os.path.exists(config_path):
