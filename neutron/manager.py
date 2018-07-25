@@ -130,7 +130,7 @@ class NeutronManager(object):
         # NOTE(armax): keep hold of the actual plugin object
         plugin = self._get_plugin_instance(CORE_PLUGINS_NAMESPACE,  # 'neutron.core_plugins'
                                            plugin_provider)     #neutron.plugins.ml2.plugin:Ml2Plugin
-        directory.add_plugin(lib_const.CORE, plugin)
+        directory.add_plugin(lib_const.CORE, plugin)        #加载core plugin
         msg = validate_post_plugin_load()
         if msg:
             LOG.critical(msg)
@@ -138,7 +138,7 @@ class NeutronManager(object):
 
         # load services from the core plugin first
         self._load_services_from_core_plugin(plugin)
-        self._load_service_plugins()
+        self._load_service_plugins()                     #加载service plugin
         # Used by pecan WSGI
         self.resource_plugin_mappings = {}
         self.resource_controller_mappings = {}
