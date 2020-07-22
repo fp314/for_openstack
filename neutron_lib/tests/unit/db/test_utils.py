@@ -53,7 +53,7 @@ class TestUtils(base.BaseTestCase):
                          utils.get_and_validate_sort_keys(sorts, FakePort))
 
     def test_get_and_validate_sort_keys_bad_key_fails(self):
-        sorts = [('master', True)]
+        sorts = [('main', True)]
         self.assertRaises(n_exc.BadRequest,
                           utils.get_and_validate_sort_keys, sorts, FakePort)
 

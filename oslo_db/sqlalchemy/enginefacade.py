@@ -45,7 +45,7 @@ _ASYNC_READER = _symbol('ASYNC_READER')
 """Represent the transaction state of "async reader".
 
 This state indicates that the transaction is a read-only and is
-safe to use on an asynchronously updated slave database.
+safe to use on an asynchronously updated subordinate database.
 
 """
 
@@ -53,8 +53,8 @@ _READER = _symbol('READER')
 """Represent the transaction state of "reader".
 
 This state indicates that the transaction is a read-only and is
-only safe to use on a synchronously updated slave database; otherwise
-the master database should be used.
+only safe to use on a synchronously updated subordinate database; otherwise
+the main database should be used.
 
 """
 
@@ -63,7 +63,7 @@ _WRITER = _symbol('WRITER')
 """Represent the transaction state of "writer".
 
 This state indicates that the transaction writes data and
-should be directed at the master database.
+should be directed at the main database.
 
 """
 
@@ -131,7 +131,7 @@ class _TransactionFactory(object):
     def __init__(self):
         self._url_cfg = {
             'connection': _Default(),
-            'slave_connection': _Default(),
+            'subordinate_connection': _Default(),
         }
         self._engine_cfg = {
             'sqlite_fk': _Default(False),
@@ -204,7 +204,7 @@ class _TransactionFactory(object):
 
         :param connection: database URL
 
-        :param slave_connection: database URL
+        :param subordinate_connection: database URL
 
         :param sqlite_fk: whether to enable SQLite foreign key pragma; default
          False
@@ -273,7 +273,7 @@ class _TransactionFactory(object):
          needs to guarantee it can read data committed by a "writer" assuming
          replication lag is present; defaults to True.  When False, a
          @reader context works the same as @async_reader and will select
-         the "slave" database if present.
+         the "subordinate" database if present.
 
         :param flush_on_subtransaction: if True, a :class:`.Session` object
          will have its :meth:`.Session.flush` method invoked whenever a context
@@ -463,7 +463,7 @@ class _TransactionFactory(object):
             if self._reader_engine is not self._writer_engine:
                 self._reader_engine.pool.dispose()
     #根据CONF参数生成_reader_engine；_reader_maker；_writer_engine；_writer_maker
-    def _start(self, conf=False, connection=None, slave_connection=None):
+    def _start(self, conf=False, connection=None, subordinate_connection=None):
         with self._start_lock:
             # self._started has been checked on the outside
             # when _start() was called.  Within the lock,
@@ -484,8 +484,8 @@ class _TransactionFactory(object):
             url_args = self._url_args_for_conf(conf)
             if connection:
                 url_args['connection'] = connection
-            if slave_connection:
-                url_args['slave_connection'] = slave_connection
+            if subordinate_connection:
+                url_args['subordinate_connection'] = subordinate_connection
             engine_args = self._engine_args_for_conf(conf)
             maker_args = self._maker_args_for_conf(conf)
 
@@ -494,10 +494,10 @@ class _TransactionFactory(object):
                     url_args['connection'],
                     engine_args, maker_args)
 
-            if url_args.get('slave_connection'):
+            if url_args.get('subordinate_connection'):
                 self._reader_engine, self._reader_maker = \
                     self._setup_for_connection(
-                        url_args['slave_connection'],
+                        url_args['subordinate_connection'],
                         engine_args, maker_args)
             else:
                 self._reader_engine, self._reader_maker = \
@@ -769,7 +769,7 @@ class _TransactionContextManager(object):
             raise TypeError(
                 "setting savepoint and independent makes no sense.")
         self._connection = connection
-        self._allow_async = allow_async     #是否支持异步，slave db
+        self._allow_async = allow_async     #是否支持异步，subordinate db
 
     @property
     def _factory(self):
@@ -1185,13 +1185,13 @@ class LegacyEngineFacade(object):
     :param sql_connection: the connection string for the database to use
     :type sql_connection: string
 
-    :param slave_connection: the connection string for the 'slave' database
-                             to use. If not provided, the master database
+    :param subordinate_connection: the connection string for the 'subordinate' database
+                             to use. If not provided, the main database
                              will be used for all operations. Note: this
                              is meant to be used for offloading of read
-                             operations to asynchronously replicated slaves
-                             to reduce the load on the master database.
-    :type slave_connection: string
+                             operations to asynchronously replicated subordinates
+                             to reduce the load on the main database.
+    :type subordinate_connection: string
 
     :param sqlite_fk: enable foreign keys in SQLite
     :type sqlite_fk: bool
@@ -1235,7 +1235,7 @@ class LegacyEngineFacade(object):
                              True)
 
     """
-    def __init__(self, sql_connection, slave_connection=None,
+    def __init__(self, sql_connection, subordinate_connection=None,
                  sqlite_fk=False, autocommit=True,
                  expire_on_commit=False, _conf=None, _factory=None, **kwargs):
         warnings.warn(
@@ -1258,37 +1258,37 @@ class LegacyEngineFacade(object):
             # of config
             self._factory._start(
                 _conf, connection=sql_connection,
-                slave_connection=slave_connection)
+                subordinate_connection=subordinate_connection)
 
     def _check_factory_started(self):
         if not self._factory._started:
             self._factory._start()
 
-    def get_engine(self, use_slave=False):
+    def get_engine(self, use_subordinate=False):
         """Get the engine instance (note, that it's shared).
 
-        :param use_slave: if possible, use 'slave' database for this engine.
-                          If the connection string for the slave database
-                          wasn't provided, 'master' engine will be returned.
+        :param use_subordinate: if possible, use 'subordinate' database for this engine.
+                          If the connection string for the subordinate database
+                          wasn't provided, 'main' engine will be returned.
                           (defaults to False)
-        :type use_slave: bool
+        :type use_subordinate: bool
 
         """
         self._check_factory_started()
-        if use_slave:
+        if use_subordinate:
             return self._factory._reader_engine
         else:
             return self._factory._writer_engine
 
-    def get_session(self, use_slave=False, **kwargs):
+    def get_session(self, use_subordinate=False, **kwargs):
         """Get a Session instance.
 
-        :param use_slave: if possible, use 'slave' database connection for
+        :param use_subordinate: if possible, use 'subordinate' database connection for
                           this session. If the connection string for the
-                          slave database wasn't provided, a session bound
-                          to the 'master' engine will be returned.
+                          subordinate database wasn't provided, a session bound
+                          to the 'main' engine will be returned.
                           (defaults to False)
-        :type use_slave: bool
+        :type use_subordinate: bool
 
         Keyword arguments will be passed to a sessionmaker instance as is (if
         passed, they will override the ones used when the sessionmaker instance
@@ -1296,12 +1296,12 @@ class LegacyEngineFacade(object):
 
         """
         self._check_factory_started()
-        if use_slave:
+        if use_subordinate:
             return self._factory._reader_maker(**kwargs)
         else:
             return self._factory._writer_maker(**kwargs)
 
-    def get_sessionmaker(self, use_slave=False):
+    def get_sessionmaker(self, use_subordinate=False):
         """Get the sessionmaker instance used to create a Session.
 
         This can be called for those cases where the sessionmaker() is to
@@ -1309,7 +1309,7 @@ class LegacyEngineFacade(object):
 
         """
         self._check_factory_started()
-        if use_slave:
+        if use_subordinate:
             return self._factory._reader_maker
         else:
             return self._factory._writer_maker

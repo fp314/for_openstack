@@ -65,8 +65,8 @@ class PrefixDelegation(object):
                            events.AFTER_DELETE)
         self._get_sync_data()
 
-    def _is_pd_master_router(self, router):
-        return router['master']
+    def _is_pd_main_router(self, router):
+        return router['main']
 
     @utils.synchronized("l3-agent-pd")
     def enable_subnet(self, router_id, subnet_id, prefix, ri_ifname, mac):
@@ -83,11 +83,11 @@ class PrefixDelegation(object):
         if pd_info.sync:
             pd_info.mac = mac
             pd_info.old_prefix = prefix
-        elif self._is_pd_master_router(router):
+        elif self._is_pd_main_router(router):
             self._add_lla(router, pd_info.get_bind_lla_with_mask())
 
     def _delete_pd(self, router, pd_info):
-        if not self._is_pd_master_router(router):
+        if not self._is_pd_main_router(router):
             return
         self._delete_lla(router, pd_info.get_bind_lla_with_mask())
         if pd_info.client_started:
@@ -103,7 +103,7 @@ class PrefixDelegation(object):
         if not pd_info:
             return
         self._delete_pd(router, pd_info)
-        if self._is_pd_master_router(router):
+        if self._is_pd_main_router(router):
             prefix_update[subnet_id] = l3_constants.PROVISIONAL_IPV6_PD_PREFIX
             LOG.debug("Update server with prefixes: %s", prefix_update)
             self.notifier(self.context, prefix_update)
@@ -126,7 +126,7 @@ class PrefixDelegation(object):
         if not router:
             return
         router['gw_interface'] = gw_ifname
-        if not self._is_pd_master_router(router):
+        if not self._is_pd_main_router(router):
             return
         prefix_update = {}
         for pd_info in six.itervalues(router['subnets']):
@@ -150,7 +150,7 @@ class PrefixDelegation(object):
             self.notifier(self.context, prefix_update)
 
     def delete_router_pd(self, router):
-        if not self._is_pd_master_router(router):
+        if not self._is_pd_main_router(router):
             return
         prefix_update = {}
         for subnet_id, pd_info in router['subnets'].items():
@@ -269,13 +269,13 @@ class PrefixDelegation(object):
         return False
 
     @utils.synchronized("l3-agent-pd")
-    def process_ha_state(self, router_id, master):
+    def process_ha_state(self, router_id, main):
         router = self.routers.get(router_id)
-        if router is None or router['master'] == master:
+        if router is None or router['main'] == main:
             return
 
-        router['master'] = master
-        if master:
+        router['main'] = main
+        if main:
             for pd_info in six.itervalues(router['subnets']):
                 bind_lla_with_mask = pd_info.get_bind_lla_with_mask()
                 self._add_lla(router, bind_lla_with_mask)
@@ -294,7 +294,7 @@ class PrefixDelegation(object):
 
         prefix_update = {}
         for router_id, router in self.routers.items():
-            if not (self._is_pd_master_router(router) and
+            if not (self._is_pd_main_router(router) and
                     router['gw_interface']):
                 continue
 
@@ -347,7 +347,7 @@ class PrefixDelegation(object):
         for pd_info in sync_data:
             router_id = pd_info.router_id
             if not self.routers.get(router_id):
-                self.routers[router_id] = {'master': True,
+                self.routers[router_id] = {'main': True,
                                            'gw_interface': None,
                                            'ns_name': None,
                                            'subnets': {}}
@@ -365,8 +365,8 @@ def remove_router(resource, event, l3_agent, **kwargs):
     del l3_agent.pd.routers[router_id]
 
 
-def get_router_entry(ns_name, master):
-    return {'master': master,
+def get_router_entry(ns_name, main):
+    return {'main': main,
             'gw_interface': None,
             'ns_name': ns_name,
             'subnets': {}}
@@ -377,14 +377,14 @@ def add_router(resource, event, l3_agent, **kwargs):
     added_router = kwargs['router']
     router = l3_agent.pd.routers.get(added_router.router_id)
     gw_ns_name = added_router.get_gw_ns_name()
-    master = added_router.is_router_master()
+    main = added_router.is_router_main()
     if not router:
         l3_agent.pd.routers[added_router.router_id] = (
-            get_router_entry(gw_ns_name, master))
+            get_router_entry(gw_ns_name, main))
     else:
         # This will happen during l3 agent restart
         router['ns_name'] = gw_ns_name
-        router['master'] = master
+        router['main'] = main
 
 
 @utils.synchronized("l3-agent-pd")
