@@ -28,7 +28,7 @@ LOG = logging.getLogger(__name__)
 
 KEEPALIVED_STATE_CHANGE_SERVER_BACKLOG = 4096
 
-TRANSLATION_MAP = {'master': constants.HA_ROUTER_STATE_ACTIVE,
+TRANSLATION_MAP = {'main': constants.HA_ROUTER_STATE_ACTIVE,
                    'backup': constants.HA_ROUTER_STATE_STANDBY,
                    'fault': constants.HA_ROUTER_STATE_STANDBY}
 
@@ -125,14 +125,14 @@ class AgentMixin(object):
         if self.conf.enable_metadata_proxy:
             self._update_metadata_proxy(ri, router_id, state)
         self._update_radvd_daemon(ri, state)
-        self.pd.process_ha_state(router_id, state == 'master')
+        self.pd.process_ha_state(router_id, state == 'main')
         self.state_change_notifier.queue_event((router_id, state))
 
     def _configure_ipv6_params_on_ext_gw_port_if_necessary(self, ri, state):
         # If ipv6 is enabled on the platform, ipv6_gateway config flag is
         # not set and external_network associated to the router does not
         # include any IPv6 subnet, enable the gateway interface to accept
-        # Router Advts from upstream router for default route on master
+        # Router Advts from upstream router for default route on main
         # instances as well as ipv6 forwarding. Otherwise, disable them.
         ex_gw_port_id = ri.ex_gw_port and ri.ex_gw_port['id']
         if not ex_gw_port_id:
@@ -144,12 +144,12 @@ class AgentMixin(object):
         else:
             namespace = ri.ns_name
 
-        enable = state == 'master'
+        enable = state == 'main'
         ri._configure_ipv6_params_on_gw(ri.ex_gw_port, namespace,
                                         interface_name, enable)
 
     def _update_metadata_proxy(self, ri, router_id, state):
-        if state == 'master':
+        if state == 'main':
             LOG.debug('Spawning metadata proxy for router %s', router_id)
             self.metadata_driver.spawn_monitored_metadata_proxy(
                 self.process_monitor, ri.ns_name, self.conf.metadata_port,
@@ -160,9 +160,9 @@ class AgentMixin(object):
                 self.process_monitor, ri.router_id, self.conf, ri.ns_name)
 
     def _update_radvd_daemon(self, ri, state):
-        # Radvd has to be spawned only on the Master HA Router. If there are
+        # Radvd has to be spawned only on the Main HA Router. If there are
         # any state transitions, we enable/disable radvd accordingly.
-        if state == 'master':
+        if state == 'main':
             ri.enable_radvd()
         else:
             ri.disable_radvd()

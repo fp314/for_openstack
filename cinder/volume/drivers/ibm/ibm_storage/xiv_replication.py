@@ -200,7 +200,7 @@ class Replication(object):
             recovery_mgr.switch_roles(resource_id=resource['name'])
             return True, None
         except Exception as e:
-            # failed attempt to switch_roles from the master
+            # failed attempt to switch_roles from the main
             details = self.proxy._get_code_and_status_or_message(e)
             LOG.warning('Failed to perform switch_roles on'
                         ' %(res)s: %(err)s. '
@@ -209,9 +209,9 @@ class Replication(object):
         try:
             # this is the ugly stage we come to brute force
             if failback:
-                role = 'Slave'
+                role = 'Subordinate'
             else:
-                role = 'Master'
+                role = 'Main'
             LOG.warning('Attempt to change_role to %(role)s', {'role': role})
             failover_rep_mgr.change_role(resource_id=resource['name'],
                                          new_role=role)
@@ -259,13 +259,13 @@ class VolumeReplication(Replication):
                 resource_name=resource_name,
                 target_name=target,
                 mirror_type=replication_info['mode'],
-                slave_resource_name=resource_name,
-                create_slave='yes',
+                subordinate_resource_name=resource_name,
+                create_subordinate='yes',
                 remote_pool=pool,
                 rpo=replication_info['rpo'],
                 schedule=schedule,
                 activate_mirror='yes')
-        except errors.VolumeMasterError:
+        except errors.VolumeMainError:
             LOG.debug('Volume %(vol)s has been already mirrored',
                       {'vol': resource_name})
         except Exception as e:
@@ -281,8 +281,8 @@ class VolumeReplication(Replication):
 
         Attempts to failover a single volume
         Sequence:
-        1. attempt to switch roles from master
-        2. attempt to change role to master on secondary
+        1. attempt to switch roles from main
+        2. attempt to change role to main on secondary
 
         returns (success, failure_reason)
         """
@@ -321,7 +321,7 @@ class GroupReplication(Replication):
                 resource_name=resource_name,
                 target_name=target,
                 mirror_type=replication_info['mode'],
-                slave_resource_name=resource_name,
+                subordinate_resource_name=resource_name,
                 rpo=replication_info['rpo'],
                 schedule=schedule,
                 activate_mirror='yes')

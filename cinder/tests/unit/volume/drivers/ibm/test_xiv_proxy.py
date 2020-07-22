@@ -475,7 +475,7 @@ class XIVProxyTest(test.TestCase):
                 mock.MagicMock(return_value=False))
     @mock.patch("cinder.volume.drivers.ibm.ibm_storage."
                 "xiv_proxy.XIVProxy._get_target_params",
-                mock.MagicMock(return_value={'san_clustername': "master"}))
+                mock.MagicMock(return_value={'san_clustername': "main"}))
     @mock.patch("cinder.volume.drivers.ibm.ibm_storage."
                 "xiv_proxy.XIVProxy._init_xcli",
                 mock.MagicMock())
@@ -511,7 +511,7 @@ class XIVProxyTest(test.TestCase):
                 mock.MagicMock(return_value=True))
     @mock.patch("cinder.volume.drivers.ibm.ibm_storage."
                 "xiv_proxy.XIVProxy._get_target_params",
-                mock.MagicMock(return_value={'san_clustername': "master"}))
+                mock.MagicMock(return_value={'san_clustername': "main"}))
     @mock.patch("cinder.volume.drivers.ibm.ibm_storage."
                 "xiv_proxy.XIVProxy._init_xcli",
                 mock.MagicMock())
@@ -606,7 +606,7 @@ class XIVProxyTest(test.TestCase):
 
         failover_rep_mgr.change_role.assert_called_once_with(
             resource_id=group['name'],
-            new_role='Slave')
+            new_role='Subordinate')
 
     @mock.patch("cinder.volume.utils.is_group_a_cg_snapshot_type",
                 mock.MagicMock(return_value=True))

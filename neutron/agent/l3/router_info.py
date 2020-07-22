@@ -116,7 +116,7 @@ class RouterInfo(object):
         # enable_snat by default if it wasn't specified by plugin
         self._snat_enabled = self._router.get('enable_snat', True)
 
-    def is_router_master(self):
+    def is_router_main(self):
         return True
 
     def get_internal_device_name(self, port_id):
